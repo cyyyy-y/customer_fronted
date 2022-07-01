@@ -10,6 +10,7 @@ import RebirthAudit from "./components/admin/RebirthAudit/RebirthAudit";
 import StaffHome from "./components/staff/StaffHome/StaffHome";
 import DefaultRebirth from "./components/staff/DefaultRebirth/DefaultRebirth";
 import DataStatistics from "./components/admin/DataStatistics/DataStatistics";
+import DefaultQueries from "./components/common/DefaultQueries/DefaultQueries";
 
 export default new Router({
   mode: 'history',
@@ -33,7 +34,7 @@ export default new Router({
         },
         {
           path: '/DefaultQueries',
-          component: DefaultApplication
+          component: DefaultQueries
         },
         {
           path: '/admin/AdminHome',

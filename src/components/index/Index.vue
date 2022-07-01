@@ -2,7 +2,7 @@
   <el-container>
     <el-header>Header</el-header>
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="230px">
         <el-menu
             router
             unique-opened
@@ -68,10 +68,9 @@ export default {
 }
 
 .el-main {
-  background-color: #E9EEF3;
+  background-color: #f5f6fa;
   color: #333;
   text-align: center;
-  line-height: 160px;
 }
 
 </style>
