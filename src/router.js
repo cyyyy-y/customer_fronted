@@ -67,7 +67,6 @@ export default new Router({
           path: '/staff/DefaultApplication',
           component: DefaultApplication
         },
-
       ]
     }]
 })
