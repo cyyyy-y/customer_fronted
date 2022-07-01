@@ -126,7 +126,15 @@
 
 <!--      申请数量图表-->
       <el-col :span="8">
-        <div class="chart">1</div>
+        <div class="chart">
+          <div class="chart1">
+            <div class="QE-line"></div>
+            <div class="QE-text">申请数量</div>
+          </div>
+
+<!--          <div class="newCharts"></div>-->
+          <chart/>
+        </div>
       </el-col>
     </el-row>
 
@@ -134,8 +142,11 @@
 </template>
 
 <script>
+
+  import chart from "@/components/staff/StaffHome/children/chart";
 export default {
   name: "StaffHome",
+  components: {chart},
   data() {
     return {
       tableData: [{
@@ -186,7 +197,7 @@ export default {
   }
 
   .MessChart {
-    background-color: beige;
+    /*background-color: beige;*/
     height: 44%;
     margin-top: 2.5%;
     margin-bottom: 2.5%;
@@ -381,11 +392,11 @@ export default {
 
 
 /*MessChart*/
-  .mess {
+  .mess, .chart {
     background-color: #ffffff;
   }
 
-  .mess1 {
+  .mess1, .chart1 {
     display: flex;
   }
 
@@ -398,8 +409,5 @@ export default {
     margin-right: 10px;
   }
 
-  .chart {
-    background-color: #FCAB61;
-  }
 
 </style>

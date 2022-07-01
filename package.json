@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^2.6.5",
+    "echarts": "^5.3.3",
+    "echarts-gl": "^1.1.2",
     "element-ui": "^2.15.9",
     "normalize.css": "^8.0.1",
     "vue": "^2.6.10",
