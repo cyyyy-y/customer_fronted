@@ -89,16 +89,10 @@ export default {
   }
 
   .el-main {
-    background-color: #E9EEF3;
+    background-color: #f5f6fa;
     color: #333;
     text-align: center;
-    line-height: 160px;
   }
-
-  body > .el-container {
-    margin-bottom: 40px;
-  }
-
   .head1 img{
     height: 50px;
     width: 140px;
@@ -137,4 +131,20 @@ export default {
     font-size: 20px;
   }
 
+</style>
+
+<style>
+.el-menu .is-active {
+  background-color: #11327f!important;
+}
+.el-menu-item {
+  margin: 0 15px 0 15px!important;
+  border-radius: 7px!important;
+}
+.el-menu-item:hover {
+  background-color: #eee!important;
+}
+.el-menu-item:focus:hover {
+  background-color: #11327f!important;
+}
 </style>
