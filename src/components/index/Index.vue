@@ -1,28 +1,36 @@
 <template>
   <el-container>
+    <!--导航栏-->
     <el-header>
       <el-row>
+        <!--导航栏logo-->
         <el-col :span="3"><div class="head1"><img src="../../assets/ht_logo.png"/></div></el-col>
-        <el-col :span="17"><div class="head2">
-          <el-col :span="2"><div class="head2_1"><img src="../../assets/head_dh.png" height="25" width="25"/></div></el-col>
-          <el-col :span="2"><div class="head2_2"><img src="../../assets/head_ring.png" height="25" width="25"/></div></el-col>
-          <el-col :span="18"><div class="head2_3">&nbsp</div></el-col>
-          <el-col :span="2">
-            <el-badge value="4" class="item">
-              <el-button class="item_button" icon="el-icon-message"></el-button>
-            </el-badge>
-          </el-col>
-        </div></el-col>
+        <!--导航栏 菜单 铃铛 消息-->
+        <el-col :span="17">
+          <div class="head2">
+            <el-col :span="2"><div class="head2_1"><img src="../../assets/head_dh.png"/></div></el-col>
+            <el-col :span="2"><div class="head2_2"><img src="../../assets/head_ring.png"/></div></el-col>
+            <el-col :span="18"><div class="head2_3">&nbsp</div></el-col>
+            <el-col :span="2">
+              <el-badge value="4" class="item">
+                <el-button class="item_button" icon="el-icon-message"></el-button>
+              </el-badge>
+            </el-col>
+          </div>
+        </el-col>
+        <!--导航栏 用户名 退出按钮-->
         <el-col :span="4">
           <div class="head3">
-            <el-col :span="4" class="head3_1"><img src="../../assets/head_people.png" height="20" width="20"/></el-col>
-            <el-col :span="12" class="head3_2">公司员工 - 小姜</el-col>
-            <el-col :span="8" class="head3_3"><img src="../../assets/head_exit.png" height="18" width="18"/></el-col>
+            <el-col :span="4" class="head3_1"><img src="../../assets/head_people.png"/></el-col>
+            <el-col :span="13" class="head3_2">公司{{isAdmin ? '管理员' : '员工'}} - {{userName}}</el-col>
+            <el-col :span="7" class="head3_3"><img src="../../assets/head_exit.png"/></el-col>
           </div>
         </el-col>
       </el-row>
     </el-header>
+
     <el-container>
+      <!--侧边栏-->
       <el-aside width="230px">
         <el-menu
             router
@@ -42,9 +50,12 @@
           </el-menu-item>
         </el-menu>
       </el-aside>
+
+      <!--主体main-->
       <el-main>
         <router-view  />
       </el-main>
+
     </el-container>
   </el-container>
 </template>
@@ -55,6 +66,7 @@ export default {
   data() {
     return {
       isAdmin: false,
+      userName: '小姜',
       menuStaff: [
         { routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home" },
         { routerPath: "/DefaultQueries", name: "违约查询", icon: "el-icon-money" },
@@ -111,6 +123,21 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .head2_1 img, .head2_2 img {
+    height: 25px;
+    width: 25px;
+  }
+
+  .head3_1 img{
+    height: 20px;
+    width: 20px;
+  }
+
+  .head3_3 img{
+    height: 18px;
+    width: 18px;
   }
 
   /deep/ .el-badge__content.is-fixed{
