@@ -57,21 +57,21 @@
       <el-col :span="24" class="QE2">
         <el-row :gutter="20">
           <el-col :span="2">
-            <div class="QE2-mini">
+            <div class="QE2-mini" @click = "handleQueries">
               <div class="QE2-mini-icon"><img src="../../../assets/QE1.png"/></div>
               <div class="QE2-mini-text">违约查询</div>
             </div>
           </el-col>
 
           <el-col :span="2">
-            <div class="QE2-mini">
+            <div class="QE2-mini" @click = "handleApplication">
               <div class="QE2-mini-icon"><img src="../../../assets/QE2.png"/></div>
               <div class="QE2-mini-text">违约申请</div>
             </div>
           </el-col>
 
           <el-col :span="2">
-            <div class="QE2-mini">
+            <div class="QE2-mini" @click = "handleRebirth">
               <div class="QE2-mini-icon"><img src="../../../assets/QE3.png"/></div>
               <div class="QE2-mini-text">违约重生</div>
             </div>
@@ -95,6 +95,8 @@
           <div class="mess1">
             <div class="QE-line"></div>
             <div class="QE-text">消息提醒</div>
+            <div class="QE-img"><img src="../../../assets/refresh.png"/></div>
+            <div class="QE-refresh">刷新</div>
           </div>
 
           <div class="mess2">
@@ -140,7 +142,6 @@
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -192,6 +193,17 @@ export default {
         }
 
       }
+    }
+  },
+  methods: {
+    handleQueries (){
+      this.$router.push('/DefaultQueries')
+    },
+    handleApplication (){
+      this.$router.push('/staff/DefaultApplication')
+    },
+    handleRebirth (){
+      this.$router.push('/staff/DefaultRebirth')
     }
   }
 }
@@ -393,8 +405,19 @@ export default {
   }
 
   .QE-text {
-    margin-top: 13px;
+    margin-top: 15px;
     font-weight: bold;
+    font-size: 14px;
+  }
+
+  .QE-img {
+    margin-top: 13px;
+    margin-left: 680px;
+  }
+
+  .QE-refresh {
+    margin-top: 13px;
+    margin-left: 10px;
     font-size: 14px;
   }
 

@@ -30,7 +30,7 @@ export default new Router({
       children: [
         {
           path: '/',
-          redirect:'/staff/StaffHome',
+          redirect:'/admin/AdminHome',
         },
         {
           path: '/DefaultQueries',
