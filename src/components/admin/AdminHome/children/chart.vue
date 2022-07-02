@@ -11,7 +11,7 @@
       return {
         myChart: '',
         opinionData2: [
-          { value: 10, name: '审核中', itemStyle: '#FCAB61' },
+          { value: 10, name: '待审核', itemStyle: '#FCAB61' },
           { value: 10, name: '已通过', itemStyle: '#41ec85' },
           { value: 10, name: '已驳回', itemStyle: '#3F8FFF' }
         ]
@@ -46,11 +46,11 @@
             align: 'left',
             x: 'right',
             y: 'bottom',
-            data: ['审核中', '已通过', '已驳回']
+            data: ['待审核', '已通过', '已驳回']
           },
           series: [
             {
-              name: '审核中',
+              name: '待审核',
               type: 'pie',
               radius: ['50%', '70%'],
               avoidLabelOverlap: false,

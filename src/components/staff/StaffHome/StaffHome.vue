@@ -11,7 +11,7 @@
                 <img src="../../../assets/card1.png"/></div>
             </el-col>
             <el-col :span="18" class="card-m12">
-              <div>申请总数：30</div>
+              <div>申请总数：{{check+pass+reject}}</div>
             </el-col>
           </el-row>
         </el-card>
@@ -26,7 +26,7 @@
                 <img src="../../../assets/card2.png"/></div>
             </el-col>
             <el-col :span="18" class="card-m22">
-              <div>审核中：10</div>
+              <div>审核中：{{check}}</div>
             </el-col>
           </el-row>
         </el-card>
@@ -41,7 +41,7 @@
                 <img src="../../../assets/card3.png"/></div>
             </el-col>
             <el-col :span="18" class="card-m32">
-              <div>已通过：10</div>
+              <div>已通过：{{pass}}</div>
             </el-col>
           </el-row>
         </el-card>
@@ -57,21 +57,21 @@
       <el-col :span="24" class="QE2">
         <el-row :gutter="20">
           <el-col :span="2">
-            <div class="QE2-mini">
+            <div class="QE2-mini" @click = "handleQueries">
               <div class="QE2-mini-icon"><img src="../../../assets/QE1.png"/></div>
               <div class="QE2-mini-text">违约查询</div>
             </div>
           </el-col>
 
           <el-col :span="2">
-            <div class="QE2-mini">
+            <div class="QE2-mini" @click = "handleApplication">
               <div class="QE2-mini-icon"><img src="../../../assets/QE2.png"/></div>
               <div class="QE2-mini-text">违约申请</div>
             </div>
           </el-col>
 
           <el-col :span="2">
-            <div class="QE2-mini">
+            <div class="QE2-mini" @click = "handleRebirth">
               <div class="QE2-mini-icon"><img src="../../../assets/QE3.png"/></div>
               <div class="QE2-mini-text">违约重生</div>
             </div>
@@ -95,6 +95,8 @@
           <div class="mess1">
             <div class="QE-line"></div>
             <div class="QE-text">消息提醒</div>
+            <div class="QE-img"><img src="../../../assets/refresh.png"/></div>
+            <div class="QE-refresh">刷新</div>
           </div>
 
           <div class="mess2">
@@ -108,6 +110,9 @@
                         prop="pass"
                         label="是否通过"
                         width="150">
+                  <template slot-scope="scope">
+                    <span :style="activation( scope.row.pass )">{{scope.row.pass}}</span>
+                  </template>
                 </el-table-column>
                 <el-table-column
                         prop="message"
@@ -131,19 +136,18 @@
             <div class="QE-line"></div>
             <div class="QE-text">申请数量</div>
           </div>
+<!--       echarts-->
+          <chart :check="pass" :pass="pass" :reject="reject"/>
 
-<!--          <div class="newCharts"></div>-->
-          <chart/>
         </div>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script>
+import chart from "@/components/staff/StaffHome/children/chart";
 
-  import chart from "@/components/staff/StaffHome/children/chart";
 export default {
   name: "StaffHome",
   components: {chart},
@@ -165,7 +169,41 @@ export default {
         pass: '审核中',
         message: 'XXX申请正在审核中，审核人XXX ...',
         time: '11-02 09:09'
-      }]
+      }],
+      check: 10,
+      pass: 10,
+      reject: 10,
+    }
+  },
+  computed: {
+    activation() {
+      return (icontent) => { // 使用JavaScript闭包，进行传值操作
+
+        if (icontent === "已通过"){
+          return {'color': '#2ecc71'}
+        }
+        else if (icontent === "已驳回"){
+          return {'color':'#ff634c'}
+        }
+        else if (icontent === "新增"){
+          return {'color':'#6fabff'}
+        }
+        else if (icontent === "审核中"){
+          return {'color':'#FCAB61'}
+        }
+
+      }
+    }
+  },
+  methods: {
+    handleQueries (){
+      this.$router.push('/DefaultQueries')
+    },
+    handleApplication (){
+      this.$router.push('/staff/DefaultApplication')
+    },
+    handleRebirth (){
+      this.$router.push('/staff/DefaultRebirth')
     }
   }
 }
@@ -367,8 +405,19 @@ export default {
   }
 
   .QE-text {
-    margin-top: 13px;
+    margin-top: 15px;
     font-weight: bold;
+    font-size: 14px;
+  }
+
+  .QE-img {
+    margin-top: 13px;
+    margin-left: 680px;
+  }
+
+  .QE-refresh {
+    margin-top: 13px;
+    margin-left: 10px;
     font-size: 14px;
   }
 
