@@ -1,6 +1,6 @@
 <template>
-  <div class="chart" style="width:350px;height:235px;margin-left: 20px">
-    <div id="myChart" style="width:350px;height:235px;float:left;"></div>
+  <div class="chart" style="width:350px;height:240px;margin-left: 20px">
+    <div id="myChart" style="width:350px;height:240px;float:left;"></div>
   </div>
 </template>
 
@@ -11,12 +11,16 @@
       return {
         myChart: '',
         opinionData2: [
-          { value: 1, name: '校园暴力行为', itemStyle: 'red' },
-          { value: 45, name: '正常行为', itemStyle: '#1FC48D' },
-          { value: 3, name: '睡觉行为', itemStyle: '#6DC8EC' },
-          { value: 3, name: '玩手机行为', itemStyle: '#3F8FFF' }
+          { value: 10, name: '审核中', itemStyle: '#FCAB61' },
+          { value: 10, name: '已通过', itemStyle: '#41ec85' },
+          { value: 10, name: '已驳回', itemStyle: '#3F8FFF' }
         ]
       }
+    },
+    props:{
+      check: {type:Number},
+      pass: {type:Number},
+      reject: {type:Number},
     },
     mounted: function () {
       this.drawLine()
@@ -35,20 +39,18 @@
             trigger: 'item',
             formatter: '{a} <br/>{b} : {d}%'
           },
-          // color: ['#1FC48D', '#F5A60A', '#6DC8EC', '#3F8FFF'],
-          color: ['red', '#1FC48D', '#6DC8EC', '#3F8FFF'],
-          // backgroundColor: '#ffffff',
+          color: ['#FCAB61', '#41ec85', '#3F8FFF'],
           legend: {
             orient: 'vertical',
             icon: 'circle',
             align: 'left',
             x: 'right',
             y: 'bottom',
-            data: ['校园暴力行为', '正常行为', '睡觉行为', '玩手机行为']
+            data: ['审核中', '已通过', '已驳回']
           },
           series: [
             {
-              name: '课堂行为',
+              name: '审核中',
               type: 'pie',
               radius: ['50%', '70%'],
               avoidLabelOverlap: false,
@@ -61,7 +63,7 @@
                 },
                 color: function (params) {
                   // 自定义颜色
-                  var colorList = ['red', '#1FC48D', '#6DC8EC', '#3F8FFF']
+                  var colorList = ['#FCAB61', '#41ec85', '#3F8FFF']
                   return colorList[params.dataIndex]
                 }
               },
