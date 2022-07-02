@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top-line @searchChange="searchChange" :add="false" :title="' 查询'"/>
+    <top-line @searchChange="searchChange" :add="false" :title="'查询'"/>
     <default-table
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
   </div>

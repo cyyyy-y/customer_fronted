@@ -87,7 +87,16 @@
           prop="review_time"
           label="操作">
         <template slot-scope="scope">
-          <el-button type="info" round plain>重生</el-button>
+          <el-button v-if="scope.row.review_state === 1" type="info" size="small" round plain>重生</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+          v-if="isAudit"
+          prop="review_time"
+          label="审核">
+        <template slot-scope="scope">
+          <el-button type="success" size="small" round plain>通过</el-button>
+          <el-button type="danger" size="small" round plain>取消</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -96,9 +105,9 @@
         @current-change="handleCurrentChange"
         :current-page="currentPage"
         :page-sizes="[100, 200, 300, 400]"
-        :page-size="100"
+        :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
-        :total="400">
+        :total="40">
     </el-pagination>
   </el-card>
 
@@ -127,7 +136,11 @@ export default {
     isRebirth: {
       type: Boolean,
       default: false
-    }
+    },
+    isAudit: {
+      type: Boolean,
+      default: false
+    },
   },
   methods: {
     filterTag(value, row) {
@@ -135,7 +148,6 @@ export default {
     },
     getFormattingDate(date) {
       let list = date.split(' ')
-      console.log(list)
       return list[0] + '\r\n' + list[1]
     },
     handleSizeChange(val) {

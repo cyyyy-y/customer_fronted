@@ -71,19 +71,24 @@
 <script>
 export default {
   name: "Index",
+  beforeMount() {
+    this.isAdmin = this.$route.path.includes('admin')
+    console.log(this.isAdmin)
+  },
+  watch: {},
   data() {
     return {
-      isAdmin: false,
+      isAdmin: null,
       userName: '小姜',
       menuStaff: [
         {routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home"},
-        {routerPath: "/DefaultQueries", name: "违约查询", icon: "el-icon-money"},
+        {routerPath: "/staff/DefaultQueries", name: "违约查询", icon: "el-icon-money"},
         {routerPath: "/staff/DefaultApplication", name: "违约申请", icon: "el-icon-folder-opened"},
         {routerPath: "/staff/DefaultRebirth", name: "违约重生", icon: "el-icon-tickets"},
       ],
       menuAdmin: [
         {routerPath: "/admin/AdminHome", name: "主页", icon: "el-icon-s-home"},
-        {routerPath: "/DefaultQueries", name: "违约查询", icon: "el-icon-money"},
+        {routerPath: "/admin/DefaultQueries", name: "违约查询", icon: "el-icon-money"},
         {routerPath: "/admin/DefaultAudit", name: "违约审核", icon: "el-icon-folder-opened"},
         {routerPath: "/admin/RebirthAudit", name: "重生审核", icon: "el-icon-tickets"},
         {routerPath: "/admin/ReasonManagement", name: "原因管理", icon: "el-icon-film"},
