@@ -11,54 +11,51 @@
     </el-row>
 
     <!--表单主体-->
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="活动名称" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="活动区域" prop="region">
-        <el-select v-model="ruleForm.region" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="活动时间" required>
-        <el-col :span="11">
-          <el-form-item prop="date1">
-            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1" style="width: 100%;"></el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col class="line" :span="2">-</el-col>
-        <el-col :span="11">
-          <el-form-item prop="date2">
-            <el-time-picker placeholder="选择时间" v-model="ruleForm.date2" style="width: 100%;"></el-time-picker>
-          </el-form-item>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="即时配送" prop="delivery">
-        <el-switch v-model="ruleForm.delivery"></el-switch>
-      </el-form-item>
-      <el-form-item label="活动性质" prop="type">
-        <el-checkbox-group v-model="ruleForm.type">
-          <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-          <el-checkbox label="地推活动" name="type"></el-checkbox>
-          <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-          <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
-        </el-checkbox-group>
-      </el-form-item>
-      <el-form-item label="特殊资源" prop="resource">
-        <el-radio-group v-model="ruleForm.resource">
-          <el-radio label="线上品牌商赞助"></el-radio>
-          <el-radio label="线下场地免费"></el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="活动形式" prop="desc">
-        <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
-        <el-button @click="resetForm('ruleForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
+    <div class="form">
+      <el-form :model="ruleForm" :rules="rules" label-position="left" ref="ruleForm" label-width="125px" class="demo-ruleForm">
+        <el-form-item label="客户名称：" prop="name">
+          <el-input v-model="ruleForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="最新外部等级：" prop="level">
+          <el-radio-group v-model="ruleForm.level">
+            <el-radio :label="1" style="padding: 15px">重大风险</el-radio>
+            <el-radio :label="2" style="padding: 15px">较大风险</el-radio>
+            <el-radio :label="3" style="padding: 15px">一般风险</el-radio>
+            <el-radio :label="4" style="padding: 15px">低风险</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="违约原因：" prop="reason">
+          <el-select v-model="ruleForm.reason" placeholder="请选择违约原因">
+            <el-option :value="1" label="111"></el-option>
+            <el-option :value="2" label="222"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="违约严重性：" prop="serious">
+          <el-radio-group v-model="ruleForm.serious">
+            <el-radio :label="1" style="padding: 15px">高</el-radio>
+            <el-radio :label="2" style="padding: 15px">中</el-radio>
+            <el-radio :label="3" style="padding: 15px">低</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注" prop="remarks">
+          <el-input type="textarea"
+                    v-model="ruleForm.remarks"
+                    placeholder="可输入备注，字数不超过100个字"
+                    :autosize="{ minRows: 4, maxRows: 6}">
+          </el-input>
+        </el-form-item>
+        <el-form-item label="创建时间" prop="time">
+          <el-date-picker
+                  v-model="ruleForm.time"
+                  type="datetime"
+                  placeholder="选择日期时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button class="submit" type="primary" @click="submitForm('ruleForm')">提交申请</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
 
   </div>
 </template>
@@ -69,38 +66,29 @@ export default {
   data() {
     return {
       ruleForm: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        name: '',//客户名称
+        level: '',//最新外部等级
+        reason: '',//违约原因
+        serious:'',//违约严重性
+        remarks:'',//备注
+        time: ''
       },
       rules: {
         name: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { required: true, message: '请输入客户名称', trigger: 'blur' },
         ],
-        region: [
-          { required: true, message: '请选择活动区域', trigger: 'change' }
+        level: [
+          { required: true, message: '请选择最新外部等级', trigger: 'change' }
         ],
-        date1: [
-          { type: 'date', required: true, message: '请选择日期', trigger: 'change' }
+        reason: [
+          { required: true, message: '请选择违约原因', trigger: 'change' }
         ],
-        date2: [
-          { type: 'date', required: true, message: '请选择时间', trigger: 'change' }
+        serious: [
+          { required: true, message: '请选择违约严重性', trigger: 'change' }
         ],
-        type: [
-          { type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change' }
+        time: [
+          { type: 'date', required: true, trigger: 'change' }
         ],
-        resource: [
-          { required: true, message: '请选择活动资源', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: '请填写活动形式', trigger: 'blur' }
-        ]
       }
     };
   },
@@ -114,9 +102,6 @@ export default {
           return false;
         }
       });
-    },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     }
   }
 }
@@ -142,5 +127,16 @@ export default {
     padding-top: 15px;
     margin-bottom: 30px;
     border-top: 1px solid #9da5a3;
+  }
+
+  .form {
+    width: 60%;
+    margin-left: 25px;
+  }
+
+  .submit {
+    margin-left: 900px;
+    background-color: #11327F;
+    border-color: #11327F;
   }
 </style>
