@@ -15,15 +15,16 @@
         </template>
       </el-table-column>
       <el-table-column
-          width="10"
           type="selection"
           label="选择">
       </el-table-column>
       <el-table-column
+          v-if="!isMine"
           prop="account"
           label="违约客户">
       </el-table-column>
       <el-table-column
+          width="120"
           prop="default_reason"
           label="认定违约原因">
         <template slot-scope="scope">
@@ -31,14 +32,14 @@
         </template>
       </el-table-column>
       <el-table-column
-          width="100"
+          width="90"
           prop="default_level"
           label="严重程度">
         <template slot-scope="scope">
           <span
               :style="{'color': scope.row.default_level === 0 ? 'darkseagreen' :
               scope.row.default_level === 1 ? 'orange' : 'red', 'text-align': 'center'}"
-              disable-transitions>{{default_level_switch[scope.row.default_level]}}</span>
+              disable-transitions>{{ default_level_switch[scope.row.default_level] }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -65,7 +66,7 @@
         <template slot-scope="scope">
           <span
               :style="{'color': scope.row.credit === 0 ? 'darkseagreen' : scope.row.credit === 1 ? 'orange' : 'red'}"
-              disable-transitions>{{credit_switch[scope.row.credit]}}</span>
+              disable-transitions>{{ credit_switch[scope.row.credit] }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -77,7 +78,16 @@
         <template slot-scope="scope">
           <el-tag
               :type="scope.row.review_state === 0 ? 'primary' : scope.row.review_state === 1 ? 'success' : 'danger'"
-              disable-transitions>{{review_state_switch[scope.row.review_state]}}</el-tag>
+              disable-transitions>{{ review_state_switch[scope.row.review_state] }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+          v-if="isRebirth"
+          prop="review_time"
+          label="操作">
+        <template slot-scope="scope">
+          <el-button type="info" round plain>重生</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -96,7 +106,7 @@
 
 <script>
 export default {
-  name: "QueriesTable",
+  name: "DefaultTable",
   data() {
     return {
       review_state_switch: {0: '待审核', 1: '已通过', 2: '已驳回'},
@@ -108,7 +118,15 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default: () => {[]}
+      default: []
+    },
+    isMine: {
+      type: Boolean,
+      default: false
+    },
+    isRebirth: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -132,11 +150,13 @@ export default {
 
 <style scoped>
 .el-card {
-  margin-top: 30px;
+  margin-top: 20px;
 }
+
 .el-pagination {
   margin-top: 20px;
 }
+
 .queries-table {
   text-align: center;
 }
@@ -145,15 +165,18 @@ export default {
 .queries-table .table-expand {
   font-size: 0;
 }
+
 .queries-table .table-expand label {
   width: 90px;
   color: #99a9bf;
 }
+
 .queries-table .table-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;
   width: 50%;
 }
+
 .queries-table .cell {
   text-align: center;
 }
