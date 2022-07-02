@@ -65,7 +65,7 @@ export default {
   name: "Index",
   data() {
     return {
-      isAdmin: false,
+      isAdmin: true,
       userName: '小姜',
       menuStaff: [
         { routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home" },
