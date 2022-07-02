@@ -30,10 +30,9 @@ export default new Router({
       component: Index,
       children: [
         {
-          path: '/',
-          redirect:'/RequestDialog',
+          path: '/admin/DefaultQueries',
+          component: DefaultQueries
         },
-
         //  test
         {
           path: '/RequestDialog',
@@ -42,16 +41,12 @@ export default new Router({
         //  test
 
         {
-          path: '/DefaultQueries',
-          component: DefaultQueries
+          path: '/admin/DataStatistics',
+          component: DataStatistics
         },
         {
           path: '/admin/AdminHome',
           component: AdminHome
-        },
-        {
-          path: '/admin/DataStatistics',
-          component: DataStatistics
         },
         {
           path: '/admin/DefaultAudit',
@@ -64,6 +59,10 @@ export default new Router({
         {
           path: '/admin/RebirthAudit',
           component: RebirthAudit
+        },
+        {
+          path: '/staff/DefaultQueries',
+          component: DefaultQueries
         },
         {
           path: '/staff/StaffHome',

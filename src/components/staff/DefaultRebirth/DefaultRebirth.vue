@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top-line @searchChange="searchChange" :add="true"/>
+    <top-line @searchChange="searchChange" :add="false" :title="'重生'"/>
     <staff-describe :staffInfo="staffInfo" />
     <default-table
         :is-mine="true"
