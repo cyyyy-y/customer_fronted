@@ -1,6 +1,7 @@
 <template>
   <div>
-    <top-line @searchChange="searchChange" :add="true"/>
+    <top-line @searchChange="searchChange" :title="'审核'"/>
+    <admin-describe :admin-info="adminInfo"/>
     <default-table
         :is-audit="true"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
@@ -10,11 +11,12 @@
 <script>
 import TopLine from "../../common/TopLine/TopLine";
 import DefaultTable from "../../common/DefaultTable/DefaultTable";
+import AdminDescribe from "./children/AdminDescribe";
 export default {
   name: "DefaultAudit",
-  components: {DefaultTable, TopLine},
+  components: {AdminDescribe, DefaultTable, TopLine},
   mounted() {
-    this.staffInfo = {
+    this.adminInfo = {
       account: '海底捞',
       default_state: 0,
       group_name: '海底捞'
@@ -46,7 +48,7 @@ export default {
     return {
       search: '',
       tableData: [],
-      staffInfo: {},
+      adminInfo: {},
     }
   },
   methods: {

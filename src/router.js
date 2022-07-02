@@ -30,15 +30,9 @@ export default new Router({
       component: Index,
       children: [
         {
-<<<<<<< HEAD
           path: '/admin/DefaultQueries',
           component: DefaultQueries
-=======
-          path: '/',
-          redirect:'/RequestDialog',
->>>>>>> 929d89d22f62738d9f70b076f2694de10b29ecba
         },
-
         //  test
         {
           path: '/RequestDialog',

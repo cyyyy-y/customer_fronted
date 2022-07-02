@@ -43,6 +43,7 @@
         </template>
       </el-table-column>
       <el-table-column
+          v-if="!isAudit"
           prop="reviewer_account"
           label="认定人">
       </el-table-column>
@@ -54,6 +55,7 @@
         </template>
       </el-table-column>
       <el-table-column
+          v-if="!isAudit"
           prop="review_time"
           label="审核时间">
         <template slot-scope="scope">
@@ -70,6 +72,7 @@
         </template>
       </el-table-column>
       <el-table-column
+          v-if="!isAudit && !isAuditRebirth"
           prop="review_state"
           :filters="[{ text: '待审核', value: 0 }, { text: '已通过', value: 1 }, { text: '已驳回', value: 2 }]"
           :filter-method="filterTag"
@@ -87,7 +90,7 @@
           prop="review_time"
           label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.review_state === 1" type="info" size="small" round plain>重生</el-button>
+          <el-button v-if="scope.row.review_state === 1" type="info" size="small" round>重生</el-button>
         </template>
       </el-table-column>
       <el-table-column
@@ -95,8 +98,16 @@
           prop="review_time"
           label="审核">
         <template slot-scope="scope">
-          <el-button type="success" size="small" round plain>通过</el-button>
-          <el-button type="danger" size="small" round plain>取消</el-button>
+          <el-button type="success" size="small" round>通过</el-button>
+          <el-button type="danger" size="small" round>驳回</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+          v-if="isAuditRebirth"
+          prop="review_time"
+          label="审核">
+        <template slot-scope="scope">
+          <el-button type="info" size="small" round>审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -104,7 +115,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[100, 200, 300, 400]"
+        :page-sizes="[10, 20, 30, 40]"
         :page-size="10"
         layout="total, sizes, prev, pager, next, jumper"
         :total="40">
@@ -138,6 +149,10 @@ export default {
       default: false
     },
     isAudit: {
+      type: Boolean,
+      default: false
+    },
+    isAuditRebirth: {
       type: Boolean,
       default: false
     },

@@ -73,7 +73,6 @@ export default {
       isAdmin: null,
       userName: '小姜',
       menuStaff: [
-<<<<<<< HEAD
         {routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home"},
         {routerPath: "/staff/DefaultQueries", name: "违约查询", icon: "el-icon-money"},
         {routerPath: "/staff/DefaultApplication", name: "违约申请", icon: "el-icon-folder-opened"},
@@ -86,20 +85,6 @@ export default {
         {routerPath: "/admin/RebirthAudit", name: "重生审核", icon: "el-icon-tickets"},
         {routerPath: "/admin/ReasonManagement", name: "原因管理", icon: "el-icon-film"},
         {routerPath: "/admin/DataStatistics", name: "数据统计", icon: "el-icon-pie-chart"},
-=======
-        { routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home" },
-        { routerPath: "/DefaultQueries", name: "违约查询", icon: "el-icon-money" },
-        { routerPath: "/staff/DefaultApplication", name: "违约申请", icon: "el-icon-folder-opened" },
-        { routerPath: "/staff/DefaultRebirth", name: "违约重生", icon: "el-icon-tickets" },
-      ],
-      menuAdmin: [
-        { routerPath: "/admin/AdminHome", name: "主页", icon: "el-icon-s-home" },
-        { routerPath: "/DefaultQueries", name: "违约查询", icon: "el-icon-money" },
-        { routerPath: "/admin/DefaultAudit", name: "违约审核", icon: "el-icon-folder-opened" },
-        { routerPath: "/admin/RebirthAudit", name: "重生审核", icon: "el-icon-tickets" },
-        { routerPath: "/admin/ReasonManagement", name: "原因管理", icon: "el-icon-film" },
-        { routerPath: "/admin/DataStatistics", name: "数据统计", icon: "el-icon-pie-chart" },
->>>>>>> 929d89d22f62738d9f70b076f2694de10b29ecba
       ],
     }
   }
