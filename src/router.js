@@ -11,6 +11,7 @@ import StaffHome from "./components/staff/StaffHome/StaffHome";
 import DefaultRebirth from "./components/staff/DefaultRebirth/DefaultRebirth";
 import DataStatistics from "./components/admin/DataStatistics/DataStatistics";
 import DefaultQueries from "./components/common/DefaultQueries/DefaultQueries";
+import RequestDialog from "@/components/staff/DefaultApplication/children/RequestDialog";
 
 export default new Router({
   mode: 'history',
@@ -30,8 +31,16 @@ export default new Router({
       children: [
         {
           path: '/',
-          redirect:'/admin/AdminHome',
+          redirect:'/RequestDialog',
         },
+
+        //  test
+        {
+          path: '/RequestDialog',
+          component: RequestDialog
+        },
+        //  test
+
         {
           path: '/DefaultQueries',
           component: DefaultQueries

@@ -13,7 +13,7 @@
             <el-col :span="18"><div class="head2_3">&nbsp</div></el-col>
             <el-col :span="2">
               <el-badge value="4" class="item">
-                <el-button class="item_button" icon="el-icon-message"></el-button>
+                <div class="item-b"><el-button class="item_button" icon="el-icon-message"></el-button></div>
               </el-badge>
             </el-col>
           </div>
@@ -154,7 +154,7 @@ export default {
     border: none;
   }
 
-  /deep/ .el-button {
+  /deep/ .item-b .el-button {
     font-size: 20px;
   }
 
