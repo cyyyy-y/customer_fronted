@@ -1,10 +1,13 @@
 <template>
   <div>
-    <top-line @searchChange="searchChange" :add="true"/>
+    <top-line @searchChange="searchChange" :add="true"
+              :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"/>
     <staff-describe :staffInfo="staffInfo" />
     <default-table
         :is-mine="true"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
+
+    <RequestDialog :dialogFormVisible="dialogFormVisible"/>
   </div>
 </template>
 
@@ -12,10 +15,11 @@
 import TopLine from "../../common/TopLine/TopLine";
 import DefaultTable from "../../common/DefaultTable/DefaultTable";
 import StaffDescribe from "./children/StaffDescribe";
+import RequestDialog from "@/components/staff/DefaultApplication/children/RequestDialog";
 
 export default {
   name: "DefaultApplication",
-  components: {StaffDescribe, DefaultTable, TopLine},
+  components: {StaffDescribe, DefaultTable, TopLine, RequestDialog},
   mounted() {
     this.staffInfo = {
       account: '海底捞',
@@ -50,11 +54,15 @@ export default {
       search: '',
       tableData: [],
       staffInfo: {},
+      dialogFormVisible: false,
     }
   },
   methods: {
     searchChange(search) {
       this.search = search
+    },
+    dialogMsg(dialogMsg) {
+      this.dialogFormVisible = dialogMsg
     }
   }
 

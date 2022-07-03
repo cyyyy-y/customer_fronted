@@ -1,5 +1,5 @@
 <template>
-  <div class="Req">
+  <el-dialog class="Req" :visible.sync="dialogFormVisible">
     <!--顶部logo-->
     <el-row>
       <el-col :span="24">
@@ -30,7 +30,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="违约原因：" prop="reason">
-          <el-select v-model="ruleForm.reason" placeholder="请选择违约原因" style="width: 600px">
+          <el-select v-model="ruleForm.reason" placeholder="请选择违约原因" style="width: 500px">
             <el-option :value="1" label="6个月内，交易对手技术性或资金等原因，给当天结算带来头寸缺口 2 次以上"></el-option>
             <el-option :value="2" label="6 个月内因各种原因导致成交后撤单 2 次以上"></el-option>
             <el-option :value="3" label="未能按照合约规定支付或延期支付利息，本金或其他交付义务（不包括在宽限期内延
@@ -66,7 +66,7 @@
                   v-model="ruleForm.time"
                   type="datetime"
                   placeholder="选择日期时间"
-                  style="width: 600px">
+                  style="width: 295px">
           </el-date-picker>
         </el-form-item>
         <el-form-item>
@@ -75,13 +75,14 @@
       </el-form>
     </div>
 
-  </div>
+  </el-dialog>
 </template>
 
 <script>
   export default {
     name: "RequestDialog",
     data() {
+
       return {
         ruleForm: {
           name: '',//客户名称
@@ -110,6 +111,9 @@
         }
       };
     },
+    props: {
+      dialogFormVisible: Boolean,
+    },
     methods: {
 
       submitForm(ruleForm) {
@@ -136,7 +140,7 @@
 <style scoped>
   .Req {
     padding: 20px;
-    background-color: white;
+    /*background-color: white;*/
   }
 
   .Req-top {
@@ -161,7 +165,7 @@
   }
 
   .submit {
-    margin-left: 900px;
+    margin-left: 400px;
     background-color: #11327F;
     border-color: #11327F;
   }
