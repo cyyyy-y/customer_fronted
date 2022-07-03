@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="Req" :visible.sync="dialogFormVisible" @close="closeDialog">
+  <div class="Req">
     <!--顶部logo-->
     <el-row>
       <el-col :span="24">
@@ -67,7 +67,7 @@
         </el-form-item>
       </el-form>
     </div>
-  </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -113,17 +113,13 @@ export default {
         }
       });
     },
-    //关闭表单
-    closeDialog() {
-      this.dialogFormVisible = false;
-    }
   }
 }
 </script>
 
 <style scoped>
   .Req {
-    padding: 20px;
+    padding-left: 20px;
     /*background-color: white;*/
   }
 
@@ -137,7 +133,7 @@ export default {
     font-weight: bold;
     display: flex;
     padding-left: 15px;
-    margin-top: 30px;
+    margin-top: 20px;
     padding-top: 15px;
     margin-bottom: 30px;
     border-top: 1px solid #9da5a3;
@@ -152,5 +148,9 @@ export default {
     margin-left: 400px;
     background-color: #11327F;
     border-color: #11327F;
+  }
+
+  /deep/.el-dialog__body {
+    padding: 0px 20px!important;
   }
 </style>

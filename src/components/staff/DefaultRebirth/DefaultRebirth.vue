@@ -7,7 +7,9 @@
         :is-mine="true"
         :is-rebirth="true"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
-    <RebirthDialog :dialogFormVisible="dialogFormVisible"/>
+    <el-dialog class="Req" :visible.sync="dialogFormVisible">
+      <RebirthDialog/>
+    </el-dialog>
   </div>
 </template>
 

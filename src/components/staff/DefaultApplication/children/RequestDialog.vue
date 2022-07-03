@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="Req" :visible.sync="dialogFormVisible" @close="closeDialog">
+  <div class="Req">
     <!--顶部logo-->
     <el-row>
       <el-col :span="24">
@@ -74,7 +74,7 @@
         </el-form-item>
       </el-form>
     </div>
-  </el-dialog>
+  </div>
 </template>
 
 <script>
@@ -131,10 +131,6 @@
           }
         });
       },
-      //关闭表单
-      closeDialog() {
-        this.dialogFormVisible = false;
-      }
     }
   }
 </script>
