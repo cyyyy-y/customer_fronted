@@ -5,6 +5,7 @@
     <default-table
         :isAuditRebirth="true"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
+
   </div>
 </template>
 
@@ -14,7 +15,7 @@ import DefaultTable from "../../common/DefaultTable/DefaultTable";
 import AdminDescribe from "../DefaultAudit/children/AdminDescribe";
 export default {
   name: "RebirthAudit",
-  components: {AdminDescribe, DefaultTable, TopLine},
+  components: { AdminDescribe, DefaultTable, TopLine},
   mounted() {
     this.adminInfo = {
       account: '海底捞',
@@ -54,7 +55,7 @@ export default {
   methods: {
     searchChange(search) {
       this.search = search
-    }
+    },
   }
 }
 </script>

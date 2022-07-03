@@ -5,7 +5,7 @@
         <i class="el-icon-plus"></i>
         <span>新建</span>
       </div>
-      <div class="app-text" v-else>
+      <div class="app-text" v-else @click="ReqDialog">
         <i class="el-icon-caret-right"></i>
         <span>{{ title }}</span>
       </div>
