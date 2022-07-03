@@ -76,7 +76,7 @@
         </template>
       </el-table-column>
       <el-table-column
-          v-if="!isAudit && !isAuditRebirth"
+          v-if="!isAudit"
           prop="review_state"
           :filters="[{ text: '待审核', value: 0 }, { text: '已通过', value: 1 }, { text: '已驳回', value: 2 }]"
           :filter-method="filterTag"
@@ -95,37 +95,42 @@
           label="操作">
         <template slot-scope="scope">
           <el-button v-if="scope.row.reborn_state === 0" type="info" size="small" round>重生</el-button>
-          <el-button v-if="scope.row.review_state === 1 && scope.row.reborn_state === 1" type="info" size="small" round plain disabled>已重生</el-button>
-<!--          <el-button v-else type="info" size="small" round plain disabled>已重生</el-button>-->
+          <el-button v-if="scope.row.review_state === 1 && scope.row.reborn_state === 1"
+                     type="info" size="small" round plain disabled>已重生
+          </el-button>
+          <!--          <el-button v-else type="info" size="small" round plain disabled>已重生</el-button>-->
         </template>
       </el-table-column>
       <el-table-column
           v-if="isAudit"
-          prop="review_time"
           label="审核">
         <template slot-scope="scope">
-          <el-button type="success" size="small" round>通过</el-button>
-          <el-button type="danger" size="small" round>驳回</el-button>
-        </template>
-      </el-table-column>
-      <el-table-column
-          v-if="isAuditRebirth"
-          prop="review_time"
-          label="审核">
-        <template slot-scope="scope">
-          <el-button type="success" size="small" round>通过</el-button>
-          <el-button type="danger" size="small" round>驳回</el-button>
+          <el-popconfirm
+              title="确定通过此申请？"
+              icon="el-icon-success"
+              icon-color="darkseagreen"
+              @confirm="confirmPass(scope.row.id || scope.row.default_id)"
+          >
+            <el-button slot="reference" type="success" size="small" round>通过</el-button>
+          </el-popconfirm>
+          <el-popconfirm
+              style="margin-left: 10px"
+              title="确定驳回此申请？"
+              icon="el-icon-warning"
+              icon-color="red"
+              @confirm="confirmRejected(scope.row.id || scope.row.default_id)"
+          >
+            <el-button slot="reference" type="danger" size="small" round>驳回</el-button>
+          </el-popconfirm>
         </template>
       </el-table-column>
     </el-table>
     <el-pagination
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="40">
+        :page-size="isQueries ? 10 : 2"
+        layout="total, prev, pager, next, jumper"
+        :total="tableData.length">
     </el-pagination>
   </el-card>
 
@@ -147,6 +152,10 @@ export default {
       type: Array,
       default: []
     },
+    isQueries: {
+      type: Boolean,
+      default: false
+    },
     isMine: {
       type: Boolean,
       default: false
@@ -159,10 +168,6 @@ export default {
       type: Boolean,
       default: false
     },
-    isAuditRebirth: {
-      type: Boolean,
-      default: false
-    },
   },
   methods: {
     filterTag(value, row) {
@@ -172,11 +177,16 @@ export default {
       let list = date.split(' ')
       return list[0] + '\r\n' + list[1]
     },
-    handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
-    },
     handleCurrentChange(val) {
+      this.$emit('handleCurrentChange', val)
       console.log(`当前页: ${val}`);
+    },
+    confirmPass(id) {
+      console.log(id)
+      this.$emit('confirmPass', id)
+    },
+    confirmRejected(id) {
+      this.$emit('confirmRejected', id)
     }
   }
 }
