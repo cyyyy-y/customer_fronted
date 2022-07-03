@@ -1,7 +1,7 @@
 <template>
   <el-card shadow="none">
     <div class="top-line">
-      <div class="app-text" v-if="add">
+      <div class="app-text" v-if="add" @click="ReqDialog">
         <i class="el-icon-plus"></i>
         <span>{{ title || '新建' }}</span>
       </div>
@@ -34,14 +34,18 @@ export default {
   },
   data() {
     return {
-      search: ''
+      search: '',
+      dialogMsg: true
     }
   },
   methods: {
     searchChange() {
       this.$emit('searchChange', this.search)
+    },
+    ReqDialog() {
+      this.$emit('dialogMsg', this.dialogMsg)
     }
-  }
+  },
 }
 </script>
 
