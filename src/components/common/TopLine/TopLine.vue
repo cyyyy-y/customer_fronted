@@ -3,7 +3,7 @@
     <div class="top-line">
       <div class="app-text" v-if="add" @click="ReqDialog">
         <i class="el-icon-plus"></i>
-        <span>新建</span>
+        <span>{{ title || '新建' }}</span>
       </div>
       <div class="app-text" v-else @click="ReqDialog">
         <i class="el-icon-caret-right"></i>
@@ -30,7 +30,6 @@ export default {
     },
     title: {
       type: String,
-      default: '默认标题'
     }
   },
   data() {

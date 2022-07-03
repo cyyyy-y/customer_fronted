@@ -1,10 +1,10 @@
 <template>
   <div>
-    <top-line @searchChange="deSearchChange" :title="'违约原因'"/>
+    <top-line @searchChange="deSearchChange" :add="true" :title="'违约原因'"/>
     <reason-table :table-data="reasonList.filter(data => data.type === 0 && (!deSearch ||
     data.reason.toLowerCase().includes(deSearch.toLowerCase())))"/>
 
-    <top-line class="re-top" @searchChange="reSearchChange" :title="'重生原因'"/>
+    <top-line class="re-top" @searchChange="reSearchChange" :add="true" :title="'重生原因'"/>
     <reason-table :table-data="reasonList.filter(data => data.type === 1 && (!reSearch ||
     data.reason.toLowerCase().includes(reSearch.toLowerCase())))"/>
   </div>
@@ -20,59 +20,59 @@ export default {
   mounted() {
     this.reasonList = [
       {
-        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: 0,
+        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: false,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: 0,
+        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: 1,
+        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: 1,
+        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: 0,
+        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: 1,
+        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: 1,
+        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: 0,
+        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: false,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: 0,
+        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: 1,
+        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: 1,
+        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: 0,
+        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: 1,
+        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
       {
-        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: 1,
+        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
         create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
       },
     ]
