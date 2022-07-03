@@ -15,16 +15,12 @@
         </template>
       </el-table-column>
       <el-table-column
-          type="selection"
-          label="选择">
-      </el-table-column>
-      <el-table-column
           v-if="!isMine"
           prop="account"
           label="违约客户">
       </el-table-column>
       <el-table-column
-          width="120"
+          width="110"
           prop="default_reason"
           label="认定违约原因">
         <template slot-scope="scope">
@@ -42,10 +38,10 @@
               disable-transitions>{{ default_level_switch[scope.row.default_level] }}</span>
         </template>
       </el-table-column>
+
       <el-table-column
-          v-if="!isAudit"
-          prop="reviewer_account"
-          label="认定人">
+          prop="applicant_account"
+          label="申请人">
       </el-table-column>
       <el-table-column
           prop="apply_time"
@@ -53,6 +49,13 @@
         <template slot-scope="scope">
           {{ getFormattingDate(scope.row.apply_time) }}
         </template>
+      </el-table-column>
+
+      <el-table-column
+          width="100"
+          v-if="!isAudit"
+          prop="reviewer_account"
+          label="认定人">
       </el-table-column>
       <el-table-column
           v-if="!isAudit"
@@ -63,6 +66,7 @@
         </template>
       </el-table-column>
       <el-table-column
+          width="110"
           prop="credit"
           label="最新外部等级">
         <template slot-scope="scope">
@@ -90,7 +94,9 @@
           prop="review_time"
           label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.review_state === 1" type="info" size="small" round>重生</el-button>
+          <el-button v-if="scope.row.reborn_state === 0" type="info" size="small" round>重生</el-button>
+          <el-button v-if="scope.row.review_state === 1 && scope.row.reborn_state === 1" type="info" size="small" round plain disabled>已重生</el-button>
+<!--          <el-button v-else type="info" size="small" round plain disabled>已重生</el-button>-->
         </template>
       </el-table-column>
       <el-table-column
@@ -107,7 +113,8 @@
           prop="review_time"
           label="审核">
         <template slot-scope="scope">
-          <el-button type="info" size="small" round>审核</el-button>
+          <el-button type="success" size="small" round>通过</el-button>
+          <el-button type="danger" size="small" round>驳回</el-button>
         </template>
       </el-table-column>
     </el-table>

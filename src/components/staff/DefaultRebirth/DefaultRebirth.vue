@@ -27,22 +27,22 @@ export default {
       {
         default_id: 0, account: '海底捞', default_reason: 'reasonreasonreason', default_level: 2,
         remarks: '', apply_time: '2022-7-1 12:12:33', reviewer_account: '海底捞', credit: 1,
-        review_state: 0, review_time: '2022-7-1 12:32:23', applicant_account: '123'
+        review_state: 1, review_time: '2022-7-1 12:32:23', applicant_account: '123', reborn_state: 0
       },
       {
         default_id: 0, account: '海底捞', default_reason: 'reareasonson', default_level: 1, credit: 0,
         remarks: '', apply_time: '2022-7-1 12:12:33', reviewer_account: '海底捞',
-        review_state: 1, review_time: '2022-7-1 12:32:23', applicant_account: '123'
+        review_state: 1, review_time: '2022-7-1 12:32:23', applicant_account: '123', reborn_state: 1
       },
       {
         default_id: 0, account: '海底捞', default_reason: 'rereasonason', default_level: 0, credit: 2,
         remarks: '', apply_time: '2022-7-1 12:12:33', reviewer_account: '海底捞',
-        review_state: 2, review_time: '2022-7-1 12:32:23', applicant_account: '123'
+        review_state: 0, review_time: '2022-7-1 12:32:23', applicant_account: '123', reborn_state: 1
       },
       {
         default_id: 0, account: '海底捞', default_reason: 'rereasonreasonason', default_level: 2, credit: 1,
         remarks: '', apply_time: '2022-7-1 12:12:33', reviewer_account: '海底捞',
-        review_state: 0, review_time: '2022-7-1 12:32:23', applicant_account: '123'
+        review_state: 2, review_time: '2022-7-1 12:32:23', applicant_account: '123', reborn_state: 1
       }
     ]
   },
