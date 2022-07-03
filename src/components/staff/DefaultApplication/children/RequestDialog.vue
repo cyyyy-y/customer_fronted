@@ -1,5 +1,5 @@
 <template>
-  <el-dialog class="Req" :visible.sync="dialogFormVisible">
+  <div class="Req">
     <!--顶部logo-->
     <el-row>
       <el-col :span="24">
@@ -30,7 +30,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="违约原因：" prop="reason">
-          <el-select v-model="ruleForm.reason" placeholder="请选择违约原因" style="width: 500px">
+          <el-select v-model="ruleForm.reason" placeholder="请选择违约原因" style="width: 520px">
             <el-option :value="1" label="6个月内，交易对手技术性或资金等原因，给当天结算带来头寸缺口 2 次以上"></el-option>
             <el-option :value="2" label="6 个月内因各种原因导致成交后撤单 2 次以上"></el-option>
             <el-option :value="3" label="未能按照合约规定支付或延期支付利息，本金或其他交付义务（不包括在宽限期内延
@@ -66,7 +66,7 @@
                   v-model="ruleForm.time"
                   type="datetime"
                   placeholder="选择日期时间"
-                  style="width: 295px">
+                  style="width: 520px">
           </el-date-picker>
         </el-form-item>
         <el-form-item>
@@ -74,15 +74,13 @@
         </el-form-item>
       </el-form>
     </div>
-
-  </el-dialog>
+  </div>
 </template>
 
 <script>
   export default {
     name: "RequestDialog",
     data() {
-
       return {
         ruleForm: {
           name: '',//客户名称
@@ -115,24 +113,24 @@
       dialogFormVisible: Boolean,
     },
     methods: {
-
+      //提交表单
       submitForm(ruleForm) {
         let that = this;
         this.$refs[ruleForm].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.$notify({
+              title: '成功',
+              message: '提交成功！',
+              type: 'success'
+            });
+            this.dialogFormVisible = false;
             console.log(that.ruleForm);
           } else {
             console.log('error submit!!');
             return false;
           }
         });
-        this.$notify({
-          title: '成功',
-          message: '提交成功！',
-          type: 'success'
-        });
-      }
+      },
     }
   }
 </script>
@@ -160,7 +158,7 @@
   }
 
   .form {
-    width: 60%;
+    width: 92%;
     margin-left: 25px;
   }
 

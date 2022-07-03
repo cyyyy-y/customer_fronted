@@ -8,6 +8,7 @@
         @confirmPass="confirmPass"
         @confirmRejected="confirmRejected"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
+
   </div>
 </template>
 
@@ -15,10 +16,10 @@
 import TopLine from "../../common/TopLine/TopLine";
 import DefaultTable from "../../common/DefaultTable/DefaultTable";
 import AdminDescribe from "../DefaultAudit/children/AdminDescribe";
-import {defaultAudit, rebornAudit} from "../../../network/default_info";
+import {rebornAudit} from "../../../network/default_info";
 export default {
   name: "RebirthAudit",
-  components: {AdminDescribe, DefaultTable, TopLine},
+  components: { AdminDescribe, DefaultTable, TopLine},
   mounted() {
     this.adminInfo = {
       account: '海底捞',

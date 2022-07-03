@@ -1,11 +1,15 @@
 <template>
   <div>
-    <top-line @searchChange="searchChange" :add="false" :title="'重生'"/>
+    <top-line @searchChange="searchChange" :add="false" :title="'重生'"
+              :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"/>
     <staff-describe :staffInfo="staffInfo" />
     <default-table
         :is-mine="true"
         :is-rebirth="true"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
+    <el-dialog class="Req" :visible.sync="dialogFormVisible">
+      <RebirthDialog/>
+    </el-dialog>
   </div>
 </template>
 
@@ -13,10 +17,12 @@
 import StaffDescribe from "../DefaultApplication/children/StaffDescribe";
 import DefaultTable from "../../common/DefaultTable/DefaultTable";
 import TopLine from "../../common/TopLine/TopLine";
+import RebirthDialog from "@/components/staff/DefaultRebirth/children/RebirthDialog";
+
 
 export default {
   name: "DefaultRebirth",
-  components: {StaffDescribe, DefaultTable, TopLine},
+  components: {StaffDescribe, DefaultTable, TopLine, RebirthDialog},
   mounted() {
     this.staffInfo = {
       account: '海底捞',
@@ -51,11 +57,15 @@ export default {
       search: '',
       tableData: [],
       staffInfo: {},
+      dialogFormVisible: false,
     }
   },
   methods: {
     searchChange(search) {
       this.search = search
+    },
+    dialogMsg(dialogMsg) {
+      this.dialogFormVisible = dialogMsg
     }
   }
 }

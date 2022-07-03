@@ -4,7 +4,8 @@
 
 <script>
 export default {
-  name: "AuditDialog"
+  name: "AuditDialog",
+
 }
 </script>
 

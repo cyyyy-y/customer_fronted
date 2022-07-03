@@ -7,7 +7,9 @@
         :is-mine="true"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
 
-    <RequestDialog :dialogFormVisible="dialogFormVisible"/>
+    <el-dialog class="Req" :visible.sync="dialogFormVisible">
+      <RequestDialog/>
+    </el-dialog>
   </div>
 </template>
 
