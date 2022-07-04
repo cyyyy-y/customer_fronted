@@ -10,8 +10,6 @@
         区域
       </el-tab-pane>
     </el-tabs>
-    <stacked-line />
-
   </div>
 
 </template>

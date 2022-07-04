@@ -6,7 +6,7 @@
         @switchChange="deSwitchChange"
         @deleteReason="deleteReason"
         @handleCurrentChange="handleDeChange"
-        :total="total"
+        :total="deTotal"
         :table-data="deReasonList.filter(data => data.type === 0 && (!deSearch ||
     data.reason.toLowerCase().includes(deSearch.toLowerCase())))"/>
 
@@ -15,7 +15,7 @@
         @switchChange="reSwitchChange"
         @deleteReason="deleteReason"
         @handleCurrentChange="handleReChange"
-        :total="total"
+        :total="reTotal"
         :table-data="reReasonList.filter(data => data.type === 1 && (!reSearch ||
     data.reason.toLowerCase().includes(reSearch.toLowerCase())))"/>
 
@@ -44,9 +44,12 @@ export default {
       deReasonList: [],
       reReasonList: [],
       dialogFormVisible: false,
-      pageNum: 1,
-      pageSize: 4,
-      total: 0,
+      dePageNum: 1,
+      dePageSize: 4,
+      deTotal: 0,
+      rePageNum: 1,
+      rePageSize: 4,
+      reTotal: 0,
     }
   },
   methods: {
@@ -56,19 +59,21 @@ export default {
 
     },
     getDeReason() {
-      getReason(this.pageNum, this.pageSize, 0).then(res => {
-        this.reasonList = res.data.data.list
-        this.total = res.data.data.total
-        this.pageNum = res.data.data.pageNum
-        this.pageSize = res.data.data.pageSize
+      getReason(this.dePageNum, this.dePageSize, 0).then(res => {
+        console.log(res)
+        this.deReasonList = res.data.data.list
+        this.deTotal = res.data.data.total
+        this.dePageNum = res.data.data.pageNum
+        this.dePageSize = res.data.data.pageSize
       })
     },
     getReReason() {
-      getReason(this.pageNum, this.pageSize, 1).then(res => {
-        this.reasonList = res.data.data.list
-        this.total = res.data.data.total
-        this.pageNum = res.data.data.pageNum
-        this.pageSize = res.data.data.pageSize
+      getReason(this.rePageNum, this.rePageSize, 1).then(res => {
+        console.log(res)
+        this.reReasonList = res.data.data.list
+        this.reTotal = res.data.data.total
+        this.rePageNum = res.data.data.pageNum
+        this.rePageSize = res.data.data.pageSize
       })
     },
     deSearchChange(search) {
@@ -85,11 +90,11 @@ export default {
       this.dialogFormVisible = dialogMsg
     },
     handleDeChange(page) {
-      this.pageNum = page
+      this.dePageNum = page
       this.getDeReason()
     },
     handleReChange(page) {
-      this.pageNum = page
+      this.rePageNum = page
       this.getReReason()
     },
     deSwitchChange(id, val) {
