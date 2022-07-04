@@ -18,6 +18,8 @@ import TopLine from "../../common/TopLine/TopLine";
 import DefaultTable from "../../common/DefaultTable/DefaultTable";
 import StaffDescribe from "./children/StaffDescribe";
 import RequestDialog from "@/components/staff/DefaultApplication/children/RequestDialog";
+import {getOwnDefault} from "@/network/default_info";
+import {getReason} from "@/network/reason";
 
 export default {
   name: "DefaultApplication",
@@ -60,6 +62,21 @@ export default {
     }
   },
   methods: {
+    init() {
+      console.log("getOwnDefaulted");
+      this.getOwnDefaulted()
+    },
+    getOwnDefaulted() {
+      console.log("getOwnDefaulted");
+      getOwnDefault(this.pageNum, this.pageSize).then(res => {
+        this.tableData = res.data.data.list
+        // this.total = 12
+        this.pageNum = 1
+        // this.pageNum = res.data.data.pageNum
+        this.pageSize = 5
+        // this.pageSize = res.data.data.pageSize
+      })
+    },
     searchChange(search) {
       this.search = search
     },

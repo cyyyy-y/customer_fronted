@@ -18,8 +18,8 @@
     <div class="form">
       <el-form :model="ruleForm" :rules="rules" label-position="left" ref="ruleForm" label-width="125px"
                class="demo-ruleForm">
-        <el-form-item label="违约原因：" prop="defaultReason">
-          <el-input v-model="ruleForm.defaultReason"></el-input>
+        <el-form-item label="原因：" prop="reason">
+          <el-input v-model="ruleForm.reason"></el-input>
         </el-form-item>
         <el-form-item label="是否启用：" prop="isUsed">
           <el-radio-group v-model="ruleForm.isUsed">
@@ -27,22 +27,22 @@
             <el-radio :label="1" style="padding-left: 140px">否</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="创建时间" prop="createTime">
-          <el-date-picker
-                  v-model="ruleForm.createTime"
-                  type="datetime"
-                  placeholder="选择创建时间"
-                  style="width: 520px">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="修改时间" prop="changeTime">
-          <el-date-picker
-                  v-model="ruleForm.changeTime"
-                  type="datetime"
-                  placeholder="选择修改时间"
-                  style="width: 520px">
-          </el-date-picker>
-        </el-form-item>
+<!--        <el-form-item label="创建时间" prop="createTime">-->
+<!--          <el-date-picker-->
+<!--                  v-model="ruleForm.createTime"-->
+<!--                  type="datetime"-->
+<!--                  placeholder="选择创建时间"-->
+<!--                  style="width: 520px">-->
+<!--          </el-date-picker>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="修改时间" prop="changeTime">-->
+<!--          <el-date-picker-->
+<!--                  v-model="ruleForm.changeTime"-->
+<!--                  type="datetime"-->
+<!--                  placeholder="选择修改时间"-->
+<!--                  style="width: 520px">-->
+<!--          </el-date-picker>-->
+<!--        </el-form-item>-->
         <el-form-item>
           <el-button class="submit" type="primary" @click="submitForm('ruleForm')">确认</el-button>
         </el-form-item>
@@ -59,29 +59,25 @@
     data() {
       return {
         ruleForm: {
-          defaultReason: '',//违约原因
+          reason: '',//原因
+          type: '',//类型
           isUsed: '',//是否启用
-          createTime: '',//创建时间
-          changeTime: '',//修改时间
+          // createTime: '',//创建时间
+          // changeTime: '',//修改时间
         },
         rules: {
-          defaultReason: [
+          reason: [
             {required: true, message: '请输入违约原因', trigger: 'blur'},
           ],
           isUsed: [
             {required: true, message: '请选择是否启用', trigger: 'change'}
-          ],
-          createTime: [
-            {required: true, trigger: 'change'}
-          ],
-          changeTime: [
-            {required: true, trigger: 'change'}
           ],
         }
       };
     },
     props: {
       dialogFormVisible: Boolean,
+      type: Number,
     },
     methods: {
       //提交表单
@@ -89,15 +85,16 @@
         let that = this;
         this.$refs[ruleForm].validate((valid) => {
           if (valid) {
+            ruleForm.type = that.type;
             addReason(this.ruleForm).then(res => {
-              this.$emit('submitForm')
+              this.$emit('submitForm');
               this.$notify({
                 title: '成功',
                 message: '提交成功！',
                 type: 'success'
               });
               this.dialogFormVisible = false;
-            })
+            });
             console.log(that.ruleForm);
           } else {
             console.log('error submit!!');

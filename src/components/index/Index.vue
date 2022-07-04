@@ -71,7 +71,7 @@ export default {
   data() {
     return {
       isAdmin: null,
-      userName: '小姜',
+      userName: 'manager',
       menuStaff: [
         {routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home"},
         {routerPath: "/staff/DefaultQueries", name: "违约查询", icon: "el-icon-money"},

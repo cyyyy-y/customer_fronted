@@ -98,6 +98,7 @@ export default {
       console.log(`当前页: ${val}`);
     },
     dateFormat(date) {
+      console.log(date)
       return dateFormat(date)
     },
     switchChange(id, val) {

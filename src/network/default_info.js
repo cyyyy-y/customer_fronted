@@ -53,12 +53,43 @@ export function rebornAudit(id, rebornState) {
   })
 }
 
-export function applyDefault(company, reasonId, defaultLevel, remarks) {
+//违约申请
+export function applyDefault(ruleForm) {
   return request({
     method: 'post',
     url: '/default/certification/apply',
     params: {
-      company, reasonId, defaultLevel, remarks
+      company: ruleForm.company,
+      reasonId: ruleForm.reasonId,
+      defaultLevel: ruleForm.defaultLevel,
+      remarks: ruleForm.remarks,
+    }
+    // date: {
+    //   ...ruleForm
+    // }
+  })
+}
+
+//重生申请
+export function applyRebirth(reasonId) {
+  return request({
+    method: 'post',
+    url: '/default/reborn/apply/5',
+    date: {
+      reasonId: reasonId
     }
   })
 }
+
+//违约申请查询
+export function getOwnDefault(pageNum, pageSize) {
+  return request({
+    method: 'get',
+    url: '/default/certification/list',
+    params: {
+      pageNum,
+      pageSize
+    }
+  })
+}
+

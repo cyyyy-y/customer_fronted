@@ -1,26 +1,19 @@
 <template>
   <div>
     <top-line @searchChange="deSearchChange" :add="true" :title="'违约原因'"
-              :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"/>
-    <reason-table
-        @switchChange="deSwitchChange"
-        @deleteReason="deleteReason"
-        @handleCurrentChange="handleDeChange"
-        :total="total"
-        :table-data="deReasonList.filter(data => data.type === 0 && (!deSearch ||
+              :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"
+              :type="0"/>
+    <reason-table :table-data="reasonList.filter(data => data.type === 0 && (!deSearch ||
     data.reason.toLowerCase().includes(deSearch.toLowerCase())))"/>
 
-    <top-line class="re-top" @searchChange="reSearchChange" :add="true" :title="'重生原因'"/>
-    <reason-table
-        @switchChange="reSwitchChange"
-        @deleteReason="deleteReason"
-        @handleCurrentChange="handleReChange"
-        :total="total"
-        :table-data="reReasonList.filter(data => data.type === 1 && (!reSearch ||
+    <top-line class="re-top" @searchChange="reSearchChange" :add="true" :title="'重生原因'"
+              :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"
+              :type="1"/>
+    <reason-table :table-data="reasonList.filter(data => data.type === 1 && (!reSearch ||
     data.reason.toLowerCase().includes(reSearch.toLowerCase())))"/>
 
     <el-dialog class="Req" :visible.sync="dialogFormVisible" @close="closeDialog">
-      <ReasonDialog @submitForm="submitForm"/>
+      <ReasonDialog/>
     </el-dialog>
   </div>
 </template>
@@ -29,31 +22,84 @@
 import TopLine from "../../common/TopLine/TopLine";
 import ReasonTable from "./children/ReasonTable";
 import ReasonDialog from "@/components/admin/ReasonManagement/children/ReasonDialog";
-import {deleteReason, getReason, updateReason} from "../../../network/reason";
+import {getReason} from "@/network/reason";
 
 export default {
   name: "ReasonManagement",
   components: {ReasonTable, TopLine, ReasonDialog},
   mounted() {
-    this.init()
+    this.reasonList = [
+      {
+        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: false,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: false,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+      {
+        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
+        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
+      },
+    ]
   },
   data() {
     return {
       deSearch: '',
       reSearch: '',
-      deReasonList: [],
-      reReasonList: [],
+      reasonList: [],
       dialogFormVisible: false,
-      pageNum: 1,
-      pageSize: 4,
-      total: 0,
     }
   },
   methods: {
     init() {
+      console.log("213")
       this.getDeReason()
       this.getReReason()
-
     },
     getDeReason() {
       getReason(this.pageNum, this.pageSize, 0).then(res => {
