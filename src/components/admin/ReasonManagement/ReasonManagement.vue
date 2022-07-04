@@ -19,69 +19,13 @@
 import TopLine from "../../common/TopLine/TopLine";
 import ReasonTable from "./children/ReasonTable";
 import ReasonDialog from "@/components/admin/ReasonManagement/children/ReasonDialog";
+import {getReason} from "../../../network/reason";
 
 export default {
   name: "ReasonManagement",
   components: {ReasonTable, TopLine, ReasonDialog},
   mounted() {
-    this.reasonList = [
-      {
-        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: false,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 0, reason: 'reasonreasonreasonreason', type: 0, is_used: false,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 1, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 2, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 3, reason: 'reasonreasonreasonreason', type: 0, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 4, reason: 'reasonreasonreasonreason', type: 1, is_used: false,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 5, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-      {
-        id: 6, reason: 'reasonreasonreasonreason', type: 1, is_used: true,
-        create_time: '2022-07-02 12:34:56', update_time: '2022-07-02 12:34:56'
-      },
-    ]
+    this.getReason()
   },
   data() {
     return {
@@ -89,9 +33,21 @@ export default {
       reSearch: '',
       reasonList: [],
       dialogFormVisible: false,
+      pageNum: 1,
+      pageSize: 4,
+      total: 0,
     }
   },
   methods: {
+    init() {
+
+    },
+    getReason() {
+      getReason(this.pageNum, this.pageSize).then(res => {
+        console.log(res.data.data.list)
+        this.reasonList = res.data.data.list
+      })
+    },
     deSearchChange(search) {
       this.deSearch = search
     },

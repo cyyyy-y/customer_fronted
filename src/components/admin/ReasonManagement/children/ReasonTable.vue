@@ -14,7 +14,7 @@
           label="序号">
       </el-table-column>
       <el-table-column
-          width="120"
+          width="170"
           prop="reason"
           label="原因描述">
         <template slot-scope="scope">
@@ -24,26 +24,28 @@
         </template>
       </el-table-column>
       <el-table-column
-          prop="is_used"
+          prop="isUsed"
           label="是否启用">
         <template slot-scope="scope">
           <el-switch
-              v-model="scope.row.is_used"
+              v-model="scope.row.isUsed"
               active-text="已启用"
               inactive-text="未启用">
           </el-switch>
         </template>
       </el-table-column>
       <el-table-column
-          prop="create_time"
+          prop="createTime"
           label="创建时间">
-
+        <template slot-scope="scope">
+          {{ dateFormat(scope.row.createTime) }}
+        </template>
       </el-table-column>
       <el-table-column
-          prop="update_time"
+          prop="updateTime"
           label="修改时间">
         <template slot-scope="scope">
-          {{ scope.row.update_time }}
+          {{ dateFormat(scope.row.updateTime) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -67,6 +69,8 @@
 </template>
 
 <script>
+import {dateFormat} from "../../../../utils/date";
+
 export default {
   name: "ReasonTable",
   props: {
@@ -87,6 +91,9 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`);
+    },
+    dateFormat(date) {
+      return dateFormat(date)
     }
   }
 
