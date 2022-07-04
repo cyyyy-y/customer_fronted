@@ -8,15 +8,17 @@ import 'normalize.css/normalize.css';
 
 //引入 echarts
 import * as echarts from 'echarts';
+import VueCookies from 'vue-cookies'
+
 //注册组件
 Vue.prototype.$echarts = echarts;
 
 // import "echarts-gl";
 
-
 Vue.config.productionTip = false;
 Vue.use(VueRouter);
 Vue.use(ElementUI);
+Vue.use(VueCookies)
 
 new Vue({
   router,

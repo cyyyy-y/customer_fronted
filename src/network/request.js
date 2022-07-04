@@ -4,13 +4,18 @@ export function request(config) {
 
   //1、创建axios实例
   const instance = axios.create({
-    baseURL: 'http://localhost:8080',
-    timeout: 5000
+    baseURL: 'http://localhost:8080/api',
+    timeout: 5000,
+    headers: {
+      'Access-Control-Allow-Origin' : '*'
+    }
   })
 
   //2、axios的拦截器
   // 添加请求拦截器，在请求头中加token
   instance.interceptors.request.use(config => {
+    config.withCredentials = true
+
     if (localStorage.getItem('Authorization')) {
       config.headers.Authorization = localStorage.getItem('Authorization');
     }
@@ -24,6 +29,7 @@ export function request(config) {
 
   //响应拦截
   // instance.interceptors.request.use(res => {
+  //   console.log(res)
   //   return res.data
   // }, error => {
   //   console.log(error);

@@ -8,61 +8,61 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" inline class="table-expand">
-            <el-form-item label="认定违约原因" label-width="130px">
-              <span>{{ props.row.default_reason }}</span>
+            <el-form-item label="认定违约原因" label-width="70px">
+              <span>{{ props.row.reason }}</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
       <el-table-column
           v-if="!isMine"
-          prop="account"
+          prop="company"
           label="违约客户">
       </el-table-column>
       <el-table-column
           width="110"
-          prop="default_reason"
+          prop="reason"
           label="认定违约原因">
         <template slot-scope="scope">
-          <span>{{ scope.row.default_reason.substr(0, 8) }}……</span>
+          <span>{{ scope.row.reason.substr(0, 5) }}…</span>
         </template>
       </el-table-column>
       <el-table-column
           width="90"
-          prop="default_level"
+          prop="defaultLevel"
           label="严重程度">
         <template slot-scope="scope">
           <span
-              :style="{'color': scope.row.default_level === 0 ? 'darkseagreen' :
-              scope.row.default_level === 1 ? 'orange' : 'red', 'text-align': 'center'}"
-              disable-transitions>{{ default_level_switch[scope.row.default_level] }}</span>
+              :style="{'color': scope.row.defaultLevel === 0 ? 'darkseagreen' :
+              scope.row.defaultLevel === 1 ? 'orange' : 'red', 'text-align': 'center'}"
+              disable-transitions>{{ default_level_switch[scope.row.defaultLevel] }}</span>
         </template>
       </el-table-column>
 
       <el-table-column
-          prop="applicant_account"
+          prop="applicant"
           label="申请人">
       </el-table-column>
       <el-table-column
-          prop="apply_time"
+          prop="applyTime"
           label="申请时间">
         <template slot-scope="scope">
-          {{ getFormattingDate(scope.row.apply_time) }}
+          {{ getFormattingDate(scope.row.applyTime) }}
         </template>
       </el-table-column>
 
       <el-table-column
           width="100"
           v-if="!isAudit"
-          prop="reviewer_account"
+          prop="applicant"
           label="认定人">
       </el-table-column>
       <el-table-column
           v-if="!isAudit"
-          prop="review_time"
+          prop="reviewTime"
           label="审核时间">
         <template slot-scope="scope">
-          {{ getFormattingDate(scope.row.review_time) }}
+          {{ getFormattingDate(scope.row.reviewTime) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -77,25 +77,25 @@
       </el-table-column>
       <el-table-column
           v-if="!isAudit"
-          prop="review_state"
+          prop="reviewState"
           :filters="[{ text: '待审核', value: 0 }, { text: '已通过', value: 1 }, { text: '已驳回', value: 2 }]"
           :filter-method="filterTag"
           filter-placement="bottom-end"
           label="审核状态">
         <template slot-scope="scope">
           <el-tag
-              :type="scope.row.review_state === 0 ? 'primary' : scope.row.review_state === 1 ? 'success' : 'danger'"
-              disable-transitions>{{ review_state_switch[scope.row.review_state] }}
+              :type="scope.row.reviewState === 0 ? 'primary' : scope.row.reviewState === 1 ? 'success' : 'danger'"
+              disable-transitions>{{ review_state_switch[scope.row.reviewState] }}
           </el-tag>
         </template>
       </el-table-column>
       <el-table-column
           v-if="isRebirth"
-          prop="review_time"
+          prop="rebornState"
           label="操作">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.reborn_state === 0" type="info" size="small" round>重生</el-button>
-          <el-button v-if="scope.row.review_state === 1 && scope.row.reborn_state === 1"
+          <el-button v-if="scope.row.rebornState === null" type="info" size="small" round>重生</el-button>
+          <el-button v-if="scope.row.reviewState === 1 && scope.row.rebornState === 1"
                      type="info" size="small" round plain disabled>已重生
           </el-button>
           <!--          <el-button v-else type="info" size="small" round plain disabled>已重生</el-button>-->
@@ -109,7 +109,7 @@
               title="确定通过此申请？"
               icon="el-icon-success"
               icon-color="darkseagreen"
-              @confirm="confirmPass(scope.row.id || scope.row.default_id)"
+              @confirm="confirmPass(scope.row.id || scope.row.defaultId)"
           >
             <el-button slot="reference" type="success" size="small" round>通过</el-button>
           </el-popconfirm>
@@ -118,7 +118,7 @@
               title="确定驳回此申请？"
               icon="el-icon-warning"
               icon-color="red"
-              @confirm="confirmRejected(scope.row.id || scope.row.default_id)"
+              @confirm="confirmRejected(scope.row.defaultId ||  scope.row.id)"
           >
             <el-button slot="reference" type="danger" size="small" round>驳回</el-button>
           </el-popconfirm>
@@ -137,6 +137,8 @@
 </template>
 
 <script>
+import {dateFormat} from "../../../utils/date";
+
 export default {
   name: "DefaultTable",
   data() {
@@ -174,15 +176,13 @@ export default {
       return row.review_state === value;
     },
     getFormattingDate(date) {
-      let list = date.split(' ')
-      return list[0] + '\r\n' + list[1]
+      return dateFormat(date)
     },
     handleCurrentChange(val) {
       this.$emit('handleCurrentChange', val)
       console.log(`当前页: ${val}`);
     },
     confirmPass(id) {
-      console.log(id)
       this.$emit('confirmPass', id)
     },
     confirmRejected(id) {

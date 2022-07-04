@@ -16,6 +16,7 @@ import TopLine from "../../common/TopLine/TopLine";
 import DefaultTable from "../../common/DefaultTable/DefaultTable";
 import AdminDescribe from "./children/AdminDescribe";
 import {defaultAudit, getDefaultAuditList, getDefaultList} from "../../../network/default_info";
+
 export default {
   name: "DefaultAudit",
   components: {AdminDescribe, DefaultTable, TopLine},
@@ -25,7 +26,7 @@ export default {
       default_state: 0,
       group_name: '海底捞'
     }
-
+    this.init()
   },
   data() {
     return {
@@ -33,7 +34,7 @@ export default {
       tableData: [],
       pageNum: 1,
       pageSize: 4,
-      total : 0,
+      total: 0,
       adminInfo: {},
     }
   },
@@ -43,10 +44,11 @@ export default {
     },
     getDefaultAuditList() {
       getDefaultAuditList(this.pageNum, this.pageSize).then(res => {
-        this.tableData = res.data.list
-        this.total = res.data.total
-        this.pageNum = res.data.pageNum
-        this.pageSize = res.data.pageSize
+        console.log(res)
+        this.tableData = res.data.data.list
+        this.total = res.data.data.total
+        this.pageNum = res.data.data.pageNum
+        this.pageSize = res.data.data.pageSize
       })
     },
     searchChange(search) {
@@ -58,13 +60,19 @@ export default {
     },
     confirmPass(id) {
       defaultAudit(id, 1).then(res => {
-        if (res.message === "ok") {
+        console.log(res)
+        if (res.data.data === 1) {
           this.$message({
             message: '操作成功！',
             type: 'success'
           });
-          this.getDefaultAuditList()
+        } else {
+          this.$message({
+            message: '操作失败！!',
+            type: 'error'
+          });
         }
+        this.getDefaultAuditList()
       }).catch(err => {
         this.$message({
           message: '操作失败！',
@@ -74,13 +82,19 @@ export default {
     },
     confirmRejected(id) {
       defaultAudit(id, 2).then(res => {
-        if (res.message === "ok") {
+        console.log(res)
+        if (res.data.data === 1) {
           this.$message({
             message: '操作成功！',
             type: 'success'
           });
-          this.getDefaultAuditList()
+        } else {
+          this.$message({
+            message: '操作失败！!',
+            type: 'error'
+          });
         }
+        this.getDefaultAuditList()
       }).catch(err => {
         this.$message({
           message: '操作失败！',

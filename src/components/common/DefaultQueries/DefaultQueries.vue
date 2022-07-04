@@ -4,7 +4,7 @@
     <default-table
         :isQueries="true"
         @handleCurrentChange="handleCurrentChange"
-        :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
+        :tableData="tableData.filter(data => !search || data.company.toLowerCase().includes(search.toLowerCase()))"/>
   </div>
 </template>
 
@@ -12,6 +12,7 @@
 import TopLine from "../TopLine/TopLine";
 import DefaultTable from "../DefaultTable/DefaultTable";
 import {getDefaultList} from "../../../network/default_info";
+import {login} from "../../../network/user";
 
 export default {
   name: "DefaultQueries",
@@ -30,14 +31,20 @@ export default {
   },
   methods: {
     init() {
-      this.getDefaultList()
+      login().then(res => {
+        console.log(res)
+        this.getDefaultList()
+      }).catch(err => {
+        console.log(err)
+      })
+
     },
     getDefaultList() {
       getDefaultList(this.pageNum, this.pageSize).then(res => {
-        this.tableData = res.data.list
-        this.total = res.data.total
-        this.pageNum = res.data.pageNum
-        this.pageSize = res.data.pageSize
+        this.tableData = res.data.data.list
+        this.total = res.data.data.total
+        this.pageNum = res.data.data.pageNum
+        this.pageSize = res.data.data.pageSize
       })
     },
     searchChange(search) {
