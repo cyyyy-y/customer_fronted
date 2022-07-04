@@ -19,7 +19,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect:'/index',
+      redirect:'/login',
     },
     {
       path: '/login',
@@ -33,13 +33,6 @@ export default new Router({
           path: '/admin/DefaultQueries',
           component: DefaultQueries
         },
-        //  test
-        {
-          path: '/RequestDialog',
-          component: RequestDialog
-        },
-        //  test
-
         {
           path: '/admin/DataStatistics',
           component: DataStatistics
