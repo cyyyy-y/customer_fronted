@@ -98,7 +98,6 @@
               });
               this.dialogFormVisible = false;
             })
-
             console.log(that.ruleForm);
           } else {
             console.log('error submit!!');
