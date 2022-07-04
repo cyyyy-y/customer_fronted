@@ -30,7 +30,7 @@ export function deleteReason(id) {
 export function addReason(reason) {
   return request({
     method: 'post',
-    url: '/reason/add/' + id,
+    url: '/reason/add/',
     date: {
       ...reason
     }

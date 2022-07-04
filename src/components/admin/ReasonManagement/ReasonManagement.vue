@@ -1,6 +1,7 @@
 <template>
   <div>
     <top-line @searchChange="deSearchChange" :add="true" :title="'违约原因'"
+              :type="0"
               :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"/>
     <reason-table
         @switchChange="deSwitchChange"
@@ -10,7 +11,8 @@
         :table-data="deReasonList.filter(data => data.type === 0 && (!deSearch ||
     data.reason.toLowerCase().includes(deSearch.toLowerCase())))"/>
 
-    <top-line class="re-top" @searchChange="reSearchChange" :add="true" :title="'重生原因'"/>
+    <top-line class="re-top" @searchChange="reSearchChange" :type="1" :add="true"
+              :title="'重生原因'" :dialogFormVisible="dialogFormVisible" @dialogMsg="dialogMsg"/>
     <reason-table
         @switchChange="reSwitchChange"
         @deleteReason="deleteReason"
@@ -20,7 +22,7 @@
     data.reason.toLowerCase().includes(reSearch.toLowerCase())))"/>
 
     <el-dialog class="Req" :visible.sync="dialogFormVisible" @close="closeDialog">
-      <ReasonDialog @submitForm="submitForm"/>
+      <ReasonDialog :type="type"/>
     </el-dialog>
   </div>
 </template>
@@ -29,7 +31,7 @@
 import TopLine from "../../common/TopLine/TopLine";
 import ReasonTable from "./children/ReasonTable";
 import ReasonDialog from "@/components/admin/ReasonManagement/children/ReasonDialog";
-import {deleteReason, getReason, updateReason} from "../../../network/reason";
+import {getReason, updateReason, deleteReason, addReason} from "../../../network/reason";
 
 export default {
   name: "ReasonManagement",
@@ -50,13 +52,13 @@ export default {
       rePageNum: 1,
       rePageSize: 4,
       reTotal: 0,
+      type: 0
     }
   },
   methods: {
     init() {
       this.getDeReason()
       this.getReReason()
-
     },
     getDeReason() {
       getReason(this.dePageNum, this.dePageSize, 0).then(res => {
@@ -86,8 +88,9 @@ export default {
     closeDialog() {
       this.dialogFormVisible = false;
     },
-    dialogMsg(dialogMsg) {
-      this.dialogFormVisible = dialogMsg
+    dialogMsg(dialogMsg, type) {
+      this.dialogFormVisible = dialogMsg;
+      this.type = type
     },
     handleDeChange(page) {
       this.dePageNum = page
@@ -133,6 +136,7 @@ export default {
     submitForm() {
       this.getDeReason()
       this.getReReason()
+      this.dialogFormVisible = false;
     }
   }
 }

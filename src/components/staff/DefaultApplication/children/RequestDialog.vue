@@ -18,19 +18,11 @@
     <div class="form">
       <el-form :model="ruleForm" :rules="rules" label-position="left" ref="ruleForm" label-width="125px"
                class="demo-ruleForm">
-        <el-form-item label="客户名称：" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
+        <el-form-item label="客户名称：" prop="company">
+          <el-input v-model="ruleForm.company"></el-input>
         </el-form-item>
-        <el-form-item label="最新外部等级：" prop="level">
-          <el-radio-group v-model="ruleForm.level">
-            <el-radio :label="1" style="padding: 15px">重大风险</el-radio>
-            <el-radio :label="2" style="padding: 15px">较大风险</el-radio>
-            <el-radio :label="3" style="padding: 15px">一般风险</el-radio>
-            <el-radio :label="4" style="padding: 15px">低风险</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="违约原因：" prop="reason">
-          <el-select v-model="ruleForm.reason" placeholder="请选择违约原因" style="width: 520px">
+        <el-form-item label="违约原因：" prop="reasonId">
+          <el-select v-model="ruleForm.reasonId" placeholder="请选择违约原因" style="width: 520px">
             <el-option :value="1" label="6个月内，交易对手技术性或资金等原因，给当天结算带来头寸缺口 2 次以上"></el-option>
             <el-option :value="2" label="6 个月内因各种原因导致成交后撤单 2 次以上"></el-option>
             <el-option :value="3" label="未能按照合约规定支付或延期支付利息，本金或其他交付义务（不包括在宽限期内延
@@ -47,8 +39,8 @@
 逾期超过 90 天等），或外部评级显示为违约级别"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="违约严重性：" prop="serious">
-          <el-radio-group v-model="ruleForm.serious">
+        <el-form-item label="违约严重性：" prop="defaultLevel">
+          <el-radio-group v-model="ruleForm.defaultLevel">
             <el-radio :label="1" style="padding: 15px">高</el-radio>
             <el-radio :label="2" style="padding: 15px">中</el-radio>
             <el-radio :label="3" style="padding: 15px">低</el-radio>
@@ -61,14 +53,6 @@
                     :autosize="{ minRows: 4, maxRows: 6}">
           </el-input>
         </el-form-item>
-        <el-form-item label="创建时间" prop="time">
-          <el-date-picker
-                  v-model="ruleForm.time"
-                  type="datetime"
-                  placeholder="选择日期时间"
-                  style="width: 520px">
-          </el-date-picker>
-        </el-form-item>
         <el-form-item>
           <el-button class="submit" type="primary" @click="submitForm('ruleForm')">提交申请</el-button>
         </el-form-item>
@@ -78,17 +62,17 @@
 </template>
 
 <script>
+  import {applyDefault} from "@/network/default_info";
+
   export default {
     name: "RequestDialog",
     data() {
       return {
         ruleForm: {
-          name: '',//客户名称
-          level: '',//最新外部等级
-          reason: '',//违约原因
-          serious: '',//违约严重性
+          company: '',//客户名称
+          reasonId: '',//违约原因
+          defaultLevel: '',//违约严重性
           remarks: '',//备注
-          time: ''
         },
         rules: {
           name: [
@@ -103,9 +87,6 @@
           serious: [
             {required: true, message: '请选择违约严重性', trigger: 'change'}
           ],
-          time: [
-            {required: true, trigger: 'change'}
-          ],
         }
       };
     },
@@ -118,10 +99,14 @@
         let that = this;
         this.$refs[ruleForm].validate((valid) => {
           if (valid) {
-            this.$notify({
-              title: '成功',
-              message: '提交成功！',
-              type: 'success'
+            applyDefault(this.ruleForm).then(res => {
+              this.$emit('submitForm');
+              this.$notify({
+                title: '成功',
+                message: '提交成功！',
+                type: 'success'
+              });
+              this.dialogFormVisible = false;
             });
             this.dialogFormVisible = false;
             console.log(that.ruleForm);

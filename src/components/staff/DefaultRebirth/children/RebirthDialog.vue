@@ -71,7 +71,9 @@
 </template>
 
 <script>
-export default {
+  import {applyDefault, applyRebirth} from "@/network/default_info";
+
+  export default {
   name: "RebirthDialog",
   data() {
     return {
@@ -100,10 +102,14 @@ export default {
       let that = this;
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
-          this.$notify({
-            title: '成功',
-            message: '提交成功！',
-            type: 'success'
+          applyRebirth(that.ruleForm.rebirthReason).then(res => {
+            this.$emit('submitForm');
+            this.$notify({
+              title: '成功',
+              message: '提交成功！',
+              type: 'success'
+            });
+            this.dialogFormVisible = false;
           });
           this.dialogFormVisible = false;
           console.log(that.ruleForm);

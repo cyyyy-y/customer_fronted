@@ -30,6 +30,9 @@ export default {
     },
     title: {
       type: String,
+    },
+    type: {
+      type: Number
     }
   },
   data() {
@@ -43,7 +46,7 @@ export default {
       this.$emit('searchChange', this.search)
     },
     ReqDialog() {
-      this.$emit('dialogMsg', this.dialogMsg)
+      this.$emit('dialogMsg', this.dialogMsg, this.type)
     }
   },
 }
