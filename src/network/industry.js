@@ -1,8 +1,17 @@
 import {request} from "./request";
 
-export function getDefaultTotal(pageNum, pageSize, type) {
+export function getDefaultTotal() {
   return request({
     method: 'get',
-    url: '/count/industry',
+    url: '/count/industry/defaultTotal',
+  })
+}
+export function getIndustryDefaultTotal(industry) {
+  return request({
+    method: 'get',
+    url: '/count/industry/defaultCount',
+    params: {
+      industry
+    }
   })
 }

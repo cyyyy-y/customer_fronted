@@ -63,6 +63,8 @@
 </template>
 
 <script>
+import {login} from "../../network/user";
+
 export default {
   name: "Login",
   data() {
@@ -80,8 +82,16 @@ export default {
     },
     //loginCheck：登录的network函数
     submitLoginForm(formName) {
-      var that = this;
-      that.$router.push('/index')
+      console.log(this.loginForm)
+      login(this.loginForm.name, this.loginForm.pwd).then(res => {
+        let user = res.data.data
+        localStorage.setItem('user', user.nickname)
+        if (user.role === 0) {
+          this.$router.push('/staff/StaffHome')
+        } else {
+          this.$router.push('/admin/AdminHome')
+        }
+      })
 
       // loginCheck(that.loginForm).then(res => {
       //   // localStorage.setItem('name', response.data.details.id);

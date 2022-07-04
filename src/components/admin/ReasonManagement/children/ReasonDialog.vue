@@ -72,13 +72,13 @@
           if (valid) {
             that.ruleForm.type = that.type;
             addReason(this.ruleForm).then(res => {
-              this.$emit('submitForm');
+              console.log(res)
               this.$notify({
                 title: '成功',
                 message: '提交成功！',
                 type: 'success'
               });
-              this.dialogFormVisible = false;
+              this.$emit('submitForm');
             });
             console.log(that.ruleForm);
           } else {

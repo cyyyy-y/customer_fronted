@@ -1,86 +1,64 @@
 <template>
   <div class="line-box">
-    <div id="stackedLine" ></div>
+    <div id="stackedLine"></div>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "StackedLine",
   data() {
     return {
-      myChart: '',
+      myChart: ''
     }
+  },
+  props: {
+    stackedDateList: Array,
+    legend: Array
   },
   mounted() {
     let chartDom = document.getElementById('stackedLine');
     this.myChart = this.$echarts.init(chartDom);
+
     this.draw()
   },
   methods: {
+
     draw() {
-      this.myChart.setOption({
-        title: {
-          text: '增长趋势'
-        },
-        tooltip: {
-          trigger: 'axis'
-        },
-        legend: {
-          data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        toolbox: {
-          feature: {
-            saveAsImage: {}
-          }
-        },
-        xAxis: {
-          type: 'category',
-          boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [
-          {
-            name: 'Email',
-            type: 'line',
-            stack: 'Total',
-            data: [120, 132, 101, 134, 90, 230, 210]
+      setTimeout(() => {
+        this.myChart.setOption({
+          title: {
+            text: '增长趋势'
           },
-          {
-            name: 'Union Ads',
-            type: 'line',
-            stack: 'Total',
-            data: [220, 182, 191, 234, 290, 330, 310]
+          tooltip: {
+            trigger: 'axis'
           },
-          {
-            name: 'Video Ads',
-            type: 'line',
-            stack: 'Total',
-            data: [150, 232, 201, 154, 190, 330, 410]
+          legend: {
+            data: this.legend
           },
-          {
-            name: 'Direct',
-            type: 'line',
-            stack: 'Total',
-            data: [320, 332, 301, 334, 390, 330, 320]
+          grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
           },
-          {
-            name: 'Search Engine',
-            type: 'line',
-            stack: 'Total',
-            data: [820, 932, 901, 934, 1290, 1330, 1320]
-          }
-        ]
-      });
+          toolbox: {
+            feature: {
+              saveAsImage: {}
+            }
+          },
+          xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['2019', '2020', '2021', '2022', '2023', '2024']
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: this.stackedDateList
+        });
+      }, 1000)
     }
   }
 
@@ -89,13 +67,13 @@ export default {
 
 <style scoped>
 .line-box {
-  height:400px;
+  height: 400px;
 
 }
 
 #stackedLine {
-  width:800px;
-  height:380px;
+  width: 800px;
+  height: 380px;
   margin: 20px auto;
 }
 </style>

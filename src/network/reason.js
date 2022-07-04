@@ -31,8 +31,11 @@ export function addReason(reason) {
   return request({
     method: 'post',
     url: '/reason/add/',
-    date: {
-      ...reason
+    params: {
+      reason: reason.reason,
+      type: reason.type,
+      isUsed: reason.isUsed
     }
+
   })
 }

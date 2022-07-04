@@ -12,68 +12,58 @@ export default {
       myChart: '',
     }
   },
+  props: {
+    pieDateList: Array,
+    legend: Array
+  },
   mounted() {
     let chartDom = document.getElementById('pieChart');
     this.myChart = this.$echarts.init(chartDom);
+
     this.draw()
   },
   methods: {
     draw() {
-      this.myChart.setOption({
-        title: {
-          text: '各行业占比',
-          left: 'center'
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-          left: 'center',
-          top: 'bottom',
-          data: [
-            'rose1',
-            'rose2',
-            'rose3',
-            'rose4',
-            'rose5',
-            'rose6',
-            'rose7',
-            'rose8'
+      setTimeout(() => {
+        this.myChart.setOption({
+          title: {
+            text: '各行业占比',
+            left: 'center'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: '{a} <br/>{b} : {c} ({d}%)'
+          },
+          legend: {
+            left: 'center',
+            top: 'bottom',
+            data: this.legend
+          },
+          toolbox: {
+            show: true,
+            feature: {
+              mark: { show: true },
+              dataView: { show: true, readOnly: false },
+              restore: { show: true },
+              saveAsImage: { show: true }
+            }
+          },
+          series: [
+            {
+              name: '各行业占比',
+              type: 'pie',
+              radius: [20, 140],
+              center: ['50%', '50%'],
+              roseType: 'area',
+              itemStyle: {
+                borderRadius: 5
+              },
+              data: this.pieDateList
+            }
           ]
-        },
-        toolbox: {
-          show: true,
-          feature: {
-            mark: { show: true },
-            dataView: { show: true, readOnly: false },
-            restore: { show: true },
-            saveAsImage: { show: true }
-          }
-        },
-        series: [
-          {
-            name: 'Area Mode',
-            type: 'pie',
-            radius: [20, 140],
-            center: ['50%', '50%'],
-            roseType: 'area',
-            itemStyle: {
-              borderRadius: 5
-            },
-            data: [
-              { value: 30, name: 'rose 1' },
-              { value: 28, name: 'rose 2' },
-              { value: 26, name: 'rose 3' },
-              { value: 24, name: 'rose 4' },
-              { value: 22, name: 'rose 5' },
-              { value: 20, name: 'rose 6' },
-              { value: 18, name: 'rose 7' },
-              { value: 16, name: 'rose 8' }
-            ]
-          }
-        ]
-      })
+        })
+      }, 500)
+
     }
   }
 }

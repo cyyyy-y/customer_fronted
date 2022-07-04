@@ -176,7 +176,6 @@
         return row.review_state === value;
       },
       getFormattingDate(date) {
-        console.log(date)
         return dateFormat(date)
       },
       handleCurrentChange(val) {

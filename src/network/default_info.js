@@ -64,9 +64,6 @@ export function applyDefault(ruleForm) {
       defaultLevel: ruleForm.defaultLevel,
       remarks: ruleForm.remarks,
     }
-    // date: {
-    //   ...ruleForm
-    // }
   })
 }
 

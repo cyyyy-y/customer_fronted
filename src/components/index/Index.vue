@@ -23,7 +23,7 @@
           <div class="head3">
             <el-col :span="4" class="head3_1"><img src="../../assets/head_people.png"/></el-col>
             <el-col :span="13" class="head3_2">公司{{isAdmin ? '管理员' : '员工'}} - {{userName}}</el-col>
-            <el-col :span="7" class="head3_3"><img src="../../assets/head_exit.png"/></el-col>
+            <el-col :span="7" class="head3_3" @click.native="loginOut"><img src="../../assets/head_exit.png"/></el-col>
           </div>
         </el-col>
       </el-row>
@@ -65,13 +65,14 @@ export default {
   name: "Index",
   beforeMount() {
     this.isAdmin = this.$route.path.includes('admin')
-    console.log(this.isAdmin)
+    console.log(localStorage.getItem('user'))
+    this.userName = localStorage.getItem('user');
   },
   watch: {},
   data() {
     return {
       isAdmin: null,
-      userName: 'manager',
+      userName: 'userName',
       menuStaff: [
         {routerPath: "/staff/StaffHome", name: "主页", icon: "el-icon-s-home"},
         {routerPath: "/staff/DefaultQueries", name: "违约查询", icon: "el-icon-money"},
@@ -86,6 +87,12 @@ export default {
         {routerPath: "/admin/ReasonManagement", name: "原因管理", icon: "el-icon-film"},
         {routerPath: "/admin/DataStatistics", name: "数据统计", icon: "el-icon-pie-chart"},
       ],
+    }
+  },
+  methods: {
+    loginOut() {
+      localStorage.removeItem('user')
+      this.$router.push('/login')
     }
   }
 }

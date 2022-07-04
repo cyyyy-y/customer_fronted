@@ -22,7 +22,7 @@
     data.reason.toLowerCase().includes(reSearch.toLowerCase())))"/>
 
     <el-dialog class="Req" :visible.sync="dialogFormVisible" @close="closeDialog">
-      <ReasonDialog :type="type"/>
+      <ReasonDialog :type="type" @submitForm="submitForm"/>
     </el-dialog>
   </div>
 </template>
@@ -134,9 +134,10 @@ export default {
       })
     },
     submitForm() {
+      console.log('      this.dialogFormVisible = false;\n')
+      this.dialogFormVisible = false;
       this.getDeReason()
       this.getReReason()
-      this.dialogFormVisible = false;
     }
   }
 }
