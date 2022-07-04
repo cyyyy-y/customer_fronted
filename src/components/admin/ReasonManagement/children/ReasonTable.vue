@@ -28,6 +28,7 @@
           label="是否启用">
         <template slot-scope="scope">
           <el-switch
+              @change="switchChange(scope.row.id, scope.row.isUsed)"
               v-model="scope.row.isUsed"
               active-text="已启用"
               inactive-text="未启用">
@@ -51,7 +52,7 @@
       <el-table-column
           label="操作">
         <template slot-scope="scope">
-          <el-button type="danger" size="small" round>删除</el-button>
+          <el-button @click="deleteReason(scope.row.id)" type="danger" size="small" round>删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -59,10 +60,9 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="10"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="40">
+        :page-size="4"
+        layout="total, prev, pager, next, jumper"
+        :total="total">
     </el-pagination>
   </el-card>
 
@@ -78,6 +78,10 @@ export default {
       type: Array,
       default: []
     },
+    total: {
+      type: Number,
+      default: 0
+    },
   },
   data() {
     return {
@@ -90,10 +94,18 @@ export default {
       console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
+      this.$emit('handleCurrentChange', val)
       console.log(`当前页: ${val}`);
     },
     dateFormat(date) {
       return dateFormat(date)
+    },
+    switchChange(id, val) {
+      this.$emit('switchChange', id, val)
+      // console.log(id, val)
+    },
+    deleteReason(id) {
+      this.$emit('deleteReason', id)
     }
   }
 

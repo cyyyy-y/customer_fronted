@@ -52,6 +52,8 @@
 </template>
 
 <script>
+  import {addReason} from "../../../../network/reason";
+
   export default {
     name: "ReasonDialog",
     data() {
@@ -87,12 +89,16 @@
         let that = this;
         this.$refs[ruleForm].validate((valid) => {
           if (valid) {
-            this.$notify({
-              title: '成功',
-              message: '提交成功！',
-              type: 'success'
-            });
-            this.dialogFormVisible = false;
+            addReason(this.ruleForm).then(res => {
+              this.$emit('submitForm')
+              this.$notify({
+                title: '成功',
+                message: '提交成功！',
+                type: 'success'
+              });
+              this.dialogFormVisible = false;
+            })
+
             console.log(that.ruleForm);
           } else {
             console.log('error submit!!');
