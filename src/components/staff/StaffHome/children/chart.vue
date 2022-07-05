@@ -5,6 +5,8 @@
 </template>
 
 <script>
+  import {getCountState} from "@/network/default_info";
+
   export default {
     name: 'chart',
     data () {
@@ -23,9 +25,22 @@
       reject: {type:Number},
     },
     mounted: function () {
-      this.drawLine()
+      this.init();
+      setTimeout(this.drawLine,1000)
     },
     methods: {
+      init() {
+        this.getCountState();
+        this.drawLine()
+      },
+      getCountState() {
+        getCountState(this.pageNum, this.pageSize).then(res => {
+          console.log(res.data.data);
+          this.opinionData2[0].value = res.data.data.reviewingCount;
+          this.opinionData2[1].value = res.data.data.successCount;
+          this.opinionData2[2].value = res.data.data.failCount;
+        });
+      },
       drawLine () {
         this.myChart = this.$echarts.init(document.getElementById('myChart'))
         this.myChart.setOption({

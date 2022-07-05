@@ -90,3 +90,9 @@ export function getOwnDefault(pageNum, pageSize) {
   })
 }
 
+export function getCountState() {
+  return request({
+    method: 'get',
+    url: '/count/state',
+  })
+}

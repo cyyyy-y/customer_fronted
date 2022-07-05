@@ -6,20 +6,20 @@
         <!--导航栏logo-->
         <el-col :span="3"><div class="head1"><img src="../../assets/ht_logo.png"/></div></el-col>
         <!--导航栏 菜单 铃铛 消息-->
-        <el-col :span="17">
+        <el-col :span="16">
           <div class="head2">
             <el-col :span="2"><div class="head2_1"><img src="../../assets/head_dh.png"/></div></el-col>
             <el-col :span="2"><div class="head2_2"><img src="../../assets/head_ring.png"/></div></el-col>
             <el-col :span="18"><div class="head2_3">&nbsp</div></el-col>
-            <el-col :span="2">
-              <el-badge value="4" class="item">
-                <div class="item-b"><el-button class="item_button" icon="el-icon-message"></el-button></div>
-              </el-badge>
-            </el-col>
+<!--            <el-col :span="2">-->
+<!--              <el-badge value="4" class="item">-->
+<!--                <div class="item-b"><el-button class="item_button" icon="el-icon-message"></el-button></div>-->
+<!--              </el-badge>-->
+<!--            </el-col>-->
           </div>
         </el-col>
         <!--导航栏 用户名 退出按钮-->
-        <el-col :span="4">
+        <el-col :span="5">
           <div class="head3">
             <el-col :span="4" class="head3_1"><img src="../../assets/head_people.png"/></el-col>
             <el-col :span="13" class="head3_2">公司{{isAdmin ? '管理员' : '员工'}} - {{userName}}</el-col>
