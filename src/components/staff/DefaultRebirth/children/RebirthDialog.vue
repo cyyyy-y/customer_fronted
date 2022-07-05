@@ -19,36 +19,36 @@
       <el-form :model="ruleForm" :rules="rules" label-position="left" ref="ruleForm" label-width="125px"
                class="demo-ruleForm">
         <el-form-item label="客户名称：" prop="name">
-          <el-input v-model="ruleForm.name" :disabled="true"></el-input>
+          <el-input v-model="ruleForm.applicant" :disabled="disabled"></el-input>
         </el-form-item>
         <el-form-item label="最新外部等级：" prop="level">
-          <el-radio-group v-model="ruleForm.level">
-            <el-radio disabled  :label="1" style="padding: 15px">重大风险</el-radio>
-            <el-radio disabled  :label="2" style="padding: 15px">较大风险</el-radio>
-            <el-radio disabled  :label="3" style="padding: 15px">一般风险</el-radio>
-            <el-radio disabled  :label="4" style="padding: 15px">低风险</el-radio>
+          <el-radio-group v-model="ruleForm.credit">
+            <el-radio disabled :label="1" style="padding: 15px">重大风险</el-radio>
+            <el-radio disabled :label="2" style="padding: 15px">较大风险</el-radio>
+            <el-radio disabled :label="3" style="padding: 15px">一般风险</el-radio>
+            <el-radio disabled :label="4" style="padding: 15px">低风险</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="认定违约原因：" prop="DefaultReason">
-          <el-input v-model="ruleForm.DefaultReason" :disabled="true"></el-input>
+          <el-input v-model="ruleForm.reason" :disabled="disabled"></el-input>
         </el-form-item>
         <el-form-item label="违约严重性：" prop="serious">
-          <el-radio-group v-model="ruleForm.serious">
-            <el-radio disabled  :label="1" style="padding: 15px">高</el-radio>
-            <el-radio disabled  :label="2" style="padding: 15px">中</el-radio>
-            <el-radio disabled  :label="3" style="padding: 15px">低</el-radio>
+          <el-radio-group v-model="ruleForm.defaultLevel">
+            <el-radio disabled :label="1" style="padding: 15px">高</el-radio>
+            <el-radio disabled :label="2" style="padding: 15px">中</el-radio>
+            <el-radio disabled :label="3" style="padding: 15px">低</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="认定人：" prop="name">
-          <el-input v-model="ruleForm.reviewerNickname" :disabled="true"></el-input>
+          <el-input v-model="ruleForm.reviewerName" :disabled="disabled"></el-input>
         </el-form-item>
         <el-form-item label="认定申请时间" prop="time">
           <el-date-picker
-                  v-model="ruleForm.applyTime"
-                  type="datetime"
-                  placeholder="选择日期时间"
-                  style="width: 520px"
-                  disabled>
+              v-model="ruleForm.applyTime"
+              type="datetime"
+              placeholder="选择日期时间"
+              style="width: 520px"
+              disabled>
           </el-date-picker>
         </el-form-item>
         <el-form-item label="重生原因：" prop="rebirthReason">
@@ -71,21 +71,12 @@
 </template>
 
 <script>
-  import {applyDefault, applyRebirth} from "@/network/default_info";
+import {applyDefault, applyRebirth} from "@/network/default_info";
 
-  export default {
+export default {
   name: "RebirthDialog",
   data() {
     return {
-      ruleForm: {
-        name: '',//客户名称
-        level: '',//最新外部等级
-        DefaultReason: '',//违约原因
-        serious: '',//违约严重性
-        reviewerNickname: '',//认定人
-        applyTime: '',//认定申请时间
-        rebirthReason: '',//重生原因
-      },
       rules: {
         rebirthReason: [
           {required: true, message: '请选择重生原因', trigger: 'change'}
@@ -95,6 +86,19 @@
   },
   props: {
     dialogFormVisible: Boolean,
+    ruleForm: {
+      type: Object,
+      default: {
+        name: '',//客户名称
+        level: '',//最新外部等级
+        DefaultReason: '',//违约原因
+        serious: '',//违约严重性
+        reviewerNickname: '',//认定人
+        applyTime: '',//认定申请时间
+        rebirthReason: '',//重生原因
+      }
+    },
+    disabled: Boolean
   },
   methods: {
     //提交表单
@@ -102,16 +106,15 @@
       let that = this;
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
-          applyRebirth(that.ruleForm.rebirthReason).then(res => {
+          console.log(that.ruleForm.rebirthReason)
+          applyRebirth(that.ruleForm.defaultId, that.ruleForm.rebirthReason).then(res => {
             this.$emit('submitForm');
             this.$notify({
               title: '成功',
               message: '提交成功！',
               type: 'success'
             });
-            this.dialogFormVisible = false;
           });
-          this.dialogFormVisible = false;
           console.log(that.ruleForm);
         } else {
           console.log('error submit!!');
@@ -124,39 +127,39 @@
 </script>
 
 <style scoped>
-  .Req {
-    padding-left: 20px;
-    /*background-color: white;*/
-  }
+.Req {
+  padding-left: 20px;
+  /*background-color: white;*/
+}
 
-  .Req-top {
-    height: 50px;
-    width: 140px;
-    display: flex;
-  }
+.Req-top {
+  height: 50px;
+  width: 140px;
+  display: flex;
+}
 
-  .form-title {
-    font-weight: bold;
-    display: flex;
-    padding-left: 15px;
-    margin-top: 20px;
-    padding-top: 15px;
-    margin-bottom: 30px;
-    border-top: 1px solid #9da5a3;
-  }
+.form-title {
+  font-weight: bold;
+  display: flex;
+  padding-left: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  margin-bottom: 30px;
+  border-top: 1px solid #9da5a3;
+}
 
-  .form {
-    width: 92%;
-    margin-left: 25px;
-  }
+.form {
+  width: 92%;
+  margin-left: 25px;
+}
 
-  .submit {
-    margin-left: 400px;
-    background-color: #11327F;
-    border-color: #11327F;
-  }
+.submit {
+  margin-left: 400px;
+  background-color: #11327F;
+  border-color: #11327F;
+}
 
-  /deep/.el-dialog__body {
-    padding: 0px 20px!important;
-  }
+/deep/ .el-dialog__body {
+  padding: 0px 20px !important;
+}
 </style>

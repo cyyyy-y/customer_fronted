@@ -30,7 +30,7 @@ export default {
       default_state: 0,
       group_name: '海底捞'
     }
-
+    this.init()
   },
   data() {
     return {
@@ -49,7 +49,8 @@ export default {
     },
     getOwnDefaulted() {
       console.log("getOwnDefaulted");
-      getOwnDefault(this.pageNum, this.pageSize).then(res => {
+      getOwnDefault(this.pageNum, this.pageSize, null).then(res => {
+        console.log(res);
         this.tableData = res.data.data.list
       })
     },

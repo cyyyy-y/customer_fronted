@@ -82,10 +82,10 @@ export default {
     },
     //loginCheck：登录的network函数
     submitLoginForm(formName) {
-      console.log(this.loginForm)
       login(this.loginForm.name, this.loginForm.pwd).then(res => {
         let user = res.data.data
         localStorage.setItem('user', user.nickname)
+        localStorage.setItem('role', user.role)
         if (user.role === 0) {
           this.$router.push('/staff/StaffHome')
         } else {

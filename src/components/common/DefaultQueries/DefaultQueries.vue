@@ -26,18 +26,12 @@ export default {
       tableData: [],
       pageNum: 1,
       pageSize: 10,
-      total : 0
+      total: 0
     }
   },
   methods: {
     init() {
-      login().then(res => {
-        console.log(res)
-        this.getDefaultList()
-      }).catch(err => {
-        console.log(err)
-      })
-
+      this.getDefaultList()
     },
     getDefaultList() {
       getDefaultList(this.pageNum, this.pageSize).then(res => {

@@ -68,22 +68,23 @@ export function applyDefault(ruleForm) {
 }
 
 //重生申请
-export function applyRebirth(reasonId) {
+export function applyRebirth(id, reasonId) {
   return request({
     method: 'post',
-    url: '/default/reborn/apply/5',
-    date: {
+    url: '/default/reborn/apply/' + id,
+    params: {
       reasonId: reasonId
     }
   })
 }
 
 //违约申请查询
-export function getOwnDefault(pageNum, pageSize) {
+export function getOwnDefault(pageNum, pageSize, defaultState) {
   return request({
     method: 'get',
-    url: '/default/certification/list',
+    url: '/default/search/list/own',
     params: {
+      defaultState,
       pageNum,
       pageSize
     }
