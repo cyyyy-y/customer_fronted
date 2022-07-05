@@ -147,6 +147,7 @@
 
 <script>
 import chart from "@/components/staff/StaffHome/children/chart";
+import {getCountState} from "@/network/default_info";
 
 export default {
   name: "StaffHome",
@@ -175,6 +176,9 @@ export default {
       reject: 10,
     }
   },
+  mounted() {
+    this.init()
+  },
   computed: {
     activation() {
       return (icontent) => { // 使用JavaScript闭包，进行传值操作
@@ -196,6 +200,17 @@ export default {
     }
   },
   methods: {
+    init() {
+      this.getCountState()
+    },
+    getCountState() {
+      getCountState(this.pageNum, this.pageSize).then(res => {
+        console.log(res.data.data);
+        this.check = res.data.data.reviewingCount;
+        this.pass = res.data.data.successCount;
+        this.reject = res.data.data.failCount;
+      })
+    },
     handleQueries (){
       this.$router.push('/DefaultQueries')
     },
