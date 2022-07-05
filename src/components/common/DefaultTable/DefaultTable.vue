@@ -15,7 +15,6 @@
         </template>
       </el-table-column>
       <el-table-column
-          v-if="!isMine"
           prop="company"
           label="违约客户">
       </el-table-column>
@@ -40,6 +39,7 @@
       </el-table-column>
 
       <el-table-column
+          v-if="!isMine"
           prop="applicant"
           label="申请人">
       </el-table-column>
@@ -47,7 +47,7 @@
           prop="applyTime"
           label="申请时间">
         <template slot-scope="scope">
-          {{ getFormattingDate(scope.row.applyTime) }}
+          {{ scope.row.applyTime ? getFormattingDate(scope.row.applyTime) : ''}}
         </template>
       </el-table-column>
 
@@ -62,7 +62,7 @@
           prop="reviewTime"
           label="审核时间">
         <template slot-scope="scope">
-          {{ getFormattingDate(scope.row.reviewTime) }}
+          {{ scope.row.reviewTime ? getFormattingDate(scope.row.reviewTime) : ''}}
         </template>
       </el-table-column>
       <el-table-column
@@ -137,7 +137,7 @@
         :current-page="currentPage"
         :page-size="isQueries ? 10 : 4"
         layout="total, prev, pager, next, jumper"
-        :total="tableData.length">
+        :total="total">
     </el-pagination>
   </el-card>
 
@@ -151,9 +151,9 @@ export default {
   data() {
     return {
       review_state_switch: {0: '待审核', 1: '已通过', 2: '已驳回'},
-      credit_switch: {0: '低风险', 1: '较大风险', 2: '重大风险'},
+      credit_switch: {0: '低风险', 1: '一般风险', 2: '较大风险', 3: '重大风险'},
       default_level_switch: {0: '低', 1: '中', 2: '高'},
-      currentPage: 0
+      currentPage: 1
     }
   },
   props: {
@@ -176,6 +176,10 @@ export default {
     isAudit: {
       type: Boolean,
       default: false
+    },
+    total: {
+      type: Number,
+      default: 0
     },
   },
   methods: {

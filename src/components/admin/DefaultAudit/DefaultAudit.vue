@@ -4,6 +4,7 @@
     <admin-describe :admin-info="adminInfo"/>
     <default-table
         :is-audit="true"
+        :total="total"
         @handleCurrentChange="handleCurrentChange"
         @confirmPass="confirmPass"
         @confirmRejected="confirmRejected"

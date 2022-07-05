@@ -6,6 +6,7 @@
     <default-table
         :is-mine="true"
         :is-rebirth="true"
+        :total="total"
         @reborn="reborn"
         @rebornDes="rebornDes"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>

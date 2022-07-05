@@ -1,13 +1,13 @@
 <template>
   <div class="line-box">
-    <div id="stackedLine"></div>
+    <div id="areaStackedLine"></div>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: "StackedLine",
+  name: "areaStackedLine",
   data() {
     return {
       myChart: ''
@@ -18,9 +18,8 @@ export default {
     legend: Array
   },
   mounted() {
-    let chartDom = document.getElementById('stackedLine');
+    let chartDom = document.getElementById('areaStackedLine');
     this.myChart = this.$echarts.init(chartDom);
-
     this.draw()
   },
   methods: {
@@ -58,7 +57,9 @@ export default {
           },
           series: this.stackedDateList
         });
-      }, 1000)
+        console.log(this.legend)
+        console.log(this.stackedDateList)
+      }, 2000)
     }
   }
 
@@ -71,7 +72,7 @@ export default {
 
 }
 
-#stackedLine {
+#areaStackedLine {
   width: 800px;
   height: 380px;
   margin: 20px auto;

@@ -3,6 +3,7 @@
     <top-line @searchChange="searchChange" :add="false" :title="'查询'"/>
     <default-table
         :isQueries="true"
+        :total="total"
         @handleCurrentChange="handleCurrentChange"
         :tableData="tableData.filter(data => !search || data.company.toLowerCase().includes(search.toLowerCase()))"/>
   </div>

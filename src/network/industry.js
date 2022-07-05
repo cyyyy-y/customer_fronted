@@ -15,3 +15,19 @@ export function getIndustryDefaultTotal(industry) {
     }
   })
 }
+
+export function getAreaTotal() {
+  return request({
+    method: 'get',
+    url: '/count/area/defaultTotal',
+  })
+}
+export function getIndustryAreaTotal(industry) {
+  return request({
+    method: 'get',
+    url: '/count/area/defaultCount',
+    params: {
+      industry
+    }
+  })
+}

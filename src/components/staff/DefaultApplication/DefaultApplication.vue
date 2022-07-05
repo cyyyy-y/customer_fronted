@@ -5,6 +5,8 @@
     <staff-describe :staffInfo="staffInfo" />
     <default-table
         :is-mine="true"
+        :total="total"
+        @handleCurrentChange="handleCurrentChange"
         :tableData="tableData.filter(data => !search || data.account.toLowerCase().includes(search.toLowerCase()))"/>
 
     <el-dialog class="Req" :visible.sync="dialogFormVisible">
@@ -39,7 +41,8 @@ export default {
       staffInfo: {},
       dialogFormVisible: false,
       pageNum: 1,
-      pageSize: 5
+      pageSize: 4,
+      total: 0
     }
   },
   methods: {
@@ -52,6 +55,7 @@ export default {
       getOwnDefault(this.pageNum, this.pageSize, null).then(res => {
         console.log(res);
         this.tableData = res.data.data.list
+        this.total = res.data.data.total
       })
     },
     searchChange(search) {
@@ -64,6 +68,10 @@ export default {
       this.getOwnDefaulted()
       this.dialogFormVisible = false
 
+    },
+    handleCurrentChange(page) {
+      this.pageNum = page
+      this.getOwnDefaulted()
     }
   }
 

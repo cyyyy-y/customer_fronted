@@ -23,20 +23,7 @@
         </el-form-item>
         <el-form-item label="违约原因：" prop="reasonId">
           <el-select v-model="ruleForm.reasonId" placeholder="请选择违约原因" style="width: 520px">
-            <el-option :value="1" label="6个月内，交易对手技术性或资金等原因，给当天结算带来头寸缺口 2 次以上"></el-option>
-            <el-option :value="2" label="6 个月内因各种原因导致成交后撤单 2 次以上"></el-option>
-            <el-option :value="3" label="未能按照合约规定支付或延期支付利息，本金或其他交付义务（不包括在宽限期内延
-期支付）"></el-option>
-            <el-option :value="4" label="关联违约：如果集团（内部联系较紧密的集团）或集团内任一公司（较重要的子公司，
-一旦发生违约会对整个集团造成较大影响的）发生违约，可视情况作为集团内所有成
-员违约的触发条件"></el-option>
-            <el-option :value="5" label="发生消极债务置换：债务人提供给债权人新的或重组的债务，或新的证券组合、现金
-或资产低于原有金融义务；或为了债务人未来避免发生破产或拖欠还款而进行的展期
-或重组"></el-option>
-            <el-option :value="6" label="申请破产保护，发生法律接管，或者处于类似的破产保护状态
-"></el-option>
-            <el-option :value="7" label="在其他金融机构违约（包括不限于：人行征信记录中显示贷款分类状态不良类情况，
-逾期超过 90 天等），或外部评级显示为违约级别"></el-option>
+            <el-option v-for="item in reasonList" v-if="item.isUsed" :value="item.id" :label="item.reason"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="违约严重性：" prop="defaultLevel">
@@ -63,6 +50,7 @@
 
 <script>
   import {applyDefault} from "@/network/default_info";
+  import {getReason} from "../../../../network/reason";
 
   export default {
     name: "RequestDialog",
@@ -87,11 +75,18 @@
           serious: [
             {required: true, message: '请选择违约严重性', trigger: 'change'}
           ],
-        }
+        },
+        reasonList: []
       };
     },
     props: {
       dialogFormVisible: Boolean,
+    },
+    mounted() {
+      getReason(1, 100, 0).then(res => {
+        console.log(res)
+        this.reasonList = res.data.data.list
+      })
     },
     methods: {
       //提交表单
@@ -100,12 +95,22 @@
         this.$refs[ruleForm].validate((valid) => {
           if (valid) {
             applyDefault(this.ruleForm).then(res => {
-              this.$emit('submitForm');
-              this.$notify({
-                title: '成功',
-                message: '提交成功！',
-                type: 'success'
-              });
+              console.log(res)
+              if (res.data.code === 0) {
+                this.$emit('submitForm');
+                this.$notify({
+                  title: '成功',
+                  message: '提交成功！',
+                  type: 'success'
+                });
+              } else {
+                this.$notify({
+                  title: '失败',
+                  message: '提交失败！' + res.data.message,
+                  type: 'error'
+                });
+              }
+
               this.dialogFormVisible = false;
             });
             this.dialogFormVisible = false;

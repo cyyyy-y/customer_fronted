@@ -53,13 +53,7 @@
         </el-form-item>
         <el-form-item label="重生原因：" prop="rebirthReason">
           <el-select v-model="ruleForm.rebirthReason" placeholder="请选择违约原因" style="width: 520px">
-            <el-option :value="1" label="正常结算后解除"></el-option>
-            <el-option :value="2" label="在其他金融机构违约解除，或外部评级显示为非违约级别"></el-option>
-            <el-option :value="3" label="计提比例小于设置界限"></el-option>
-            <el-option :value="4" label="连续 12 个月内按时支付本金和利息"></el-option>
-            <el-option :value="5" label="客户的还款意愿和还款能力明显好转，已偿付各项逾期本金、逾期利息和其他费用（包
-括罚息等），且连续 12 个月内按时支付本金、利息"></el-option>
-            <el-option :value="6" label=" 导致违约的关联集团内其他发生违约的客户已经违约重生，解除关联成员的违约设定"></el-option>
+            <el-option v-for="item in reasonList" v-if="item.isUsed" :value="item.id" :label="item.reason"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -72,6 +66,7 @@
 
 <script>
 import {applyDefault, applyRebirth} from "@/network/default_info";
+import {getReason} from "../../../../network/reason";
 
 export default {
   name: "RebirthDialog",
@@ -81,7 +76,8 @@ export default {
         rebirthReason: [
           {required: true, message: '请选择重生原因', trigger: 'change'}
         ],
-      }
+      },
+      reasonList: []
     };
   },
   props: {
@@ -99,6 +95,12 @@ export default {
       }
     },
     disabled: Boolean
+  },
+  mounted() {
+    getReason(1, 100, 1).then(res => {
+      console.log(res)
+      this.reasonList = res.data.data.list
+    })
   },
   methods: {
     //提交表单
